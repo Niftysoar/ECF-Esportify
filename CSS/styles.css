@@ -493,6 +493,30 @@ h2 {
     transition: border-color 0.3s ease;
 }
 
+.label {
+    position: absolute;
+    top: 13px;
+    left: 12px;
+    font-size: 1rem;
+    color: #aaa;
+    transition: 0.2s ease all;
+    padding: 0 4px;
+}
+
+input:focus ~ .label,
+input:valid ~ .label {
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    font-size: 14px;
+    padding: 0 10px;
+}
+
+/* Disparition du placeholder au focus */
+.input-container input:focus::placeholder {
+    color: transparent;
+}
+
 .other-container {
     display: flex;
     justify-content: center;
