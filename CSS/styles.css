@@ -18,7 +18,7 @@ body {
     margin: 0;
     font-family: 'GT Walsheim Pro', sans-serif;
     position: relative;
-    background: url(../images/fond.png) no-repeat center/cover;
+    /* background: url(../images/fond.png) no-repeat center/cover; */
 }
 
 p{
@@ -38,6 +38,7 @@ p{
     justify-content: space-between;
     align-items: center;
     padding: 15px 50px;
+    flex-wrap: wrap;
 }
 
 .nav-links {
@@ -56,6 +57,7 @@ p{
     display: flex;
     align-items: center;
     gap: 15px;
+    flex-wrap: wrap;
 }
 
 .search-bar {
@@ -65,6 +67,10 @@ p{
     border: none;
     padding: 5px 10px;
     color: white;
+}
+
+.search-bar:focus {
+    outline: 2px solid #FF4A4A;
 }
 
 .btn {
@@ -81,6 +87,7 @@ p{
 }
 
 .btn-highlight {
+    display: inline-block;
     padding: 15px 30px;
     font-family: 'GT Walsheim Pro', sans-serif;;
     text-transform: uppercase;
@@ -118,29 +125,92 @@ p{
     background-color: #E53935;
 }
 
+/* Burger menu (mobile only) */
+.burger {
+    display: none;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+}
+
 /* Page 404 */
 .notFound{
+    display: grid;
+    max-width: 400px;
+    margin: auto;
+    text-align: center;    
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    gap: 0.65rem;
-    padding: 10% 5%;
+    padding: 7%;
+    gap: 2rem;
 }
 
-.notFound h1 {
-    line-height: normal;
-    font-size: 8rem;
+.notFound-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.notFound-header h1 {
+    font-weight: 900;
+    font-size: 4rem;
     color: #FF4C4C;
+    margin: 0;
 }
 
-.notFound .subtitle {
+.notFound-header h3 {
     font-size: 2rem;
-    margin-bottom: 1rem;
+    font-weight: 600;
+    color: #acacac;
+    margin-top: 2rem;
 }
 
-.notFound p {
-    margin-bottom: 1.5rem;
-    font-size: 1.2rem;
+.notFound img {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    rotate: -20deg;
+}   
+
+.notFound-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.notFound-footer p {
+    font-size: 1rem;
+    margin-bottom: 25px;
+    place-content: baseline;
+}
+
+@media (min-width: 640px) {
+    .notFound {
+      max-width: 1200px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+    .notFound img {
+      max-width: 550px;
+      grid-area: 1/1/3/2;
+    }
+    .notFound-footer {
+      max-width: 400px;
+    }
+}
+  
+@media (min-width: 1024px) {
+    .notFound {
+      column-gap: 5rem;
+    }
+    .notFound-header h1 {
+      font-size: 6rem;
+    }
+    .notFound-header h3 {
+      font-size: 2.5rem;
+    }
 }
 
 /* Section principale */
@@ -385,7 +455,7 @@ h2 {
 .banner {
     margin: 50px 30px; /* Centrage */
     background: #FF4C4C;
-    padding: 50px 0; /* Ajoute un espacement en haut et en bas */
+    padding: 50px 0;
 }
 
 .banner-content {
@@ -395,16 +465,47 @@ h2 {
 }
 
 .banner h2 {
-    width: 900px;
+    max-width: 900px;
+    width: 100%;
     margin-bottom: 15px;
+    font-weight: bold;
+    line-height: 1.4;
+    color: white;
+    padding: 0 1rem;
 }
 
 .banner a {
     background-color: #111;
+    font-size: 1rem;
+    width: fit-content;
 }
 
 .banner a:hover {
     background-color: #040404;
+}
+
+@media (min-width: 640px) {
+    .banner h2 {
+        font-size: 2rem;
+    }
+
+    .banner a {
+        font-size: 1.1rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .banner {
+        padding: 80px 40px;
+    }
+
+    .banner h2 {
+        font-size: 2.5rem;
+    }
+
+    .banner a {
+        font-size: 1.2rem;
+    }
 }
 
 /* PAGE ABOUT */
@@ -479,13 +580,14 @@ h2 {
 
 .input-container {
     position: relative;
-    margin-bottom: 15px;
+    margin: 10px;
 }
 
 .input-container input ,textarea{
     font-family: 'GT Walsheim Pro', sans-serif;
     width: 100%;
-    padding: 12px;
+    height: 56px;
+    padding: 20px;
     border: 1px solid #3E3E3E;
     background: transparent;
     color: #fff;
@@ -495,9 +597,9 @@ h2 {
 
 .label {
     position: absolute;
-    top: 13px;
+    top: 20px;
     left: 12px;
-    font-size: 1rem;
+    font-size: 0.875rem;
     color: #aaa;
     transition: 0.2s ease all;
     padding: 0 4px;
@@ -506,10 +608,7 @@ h2 {
 input:focus ~ .label,
 input:valid ~ .label {
     position: absolute;
-    top: -10px;
-    left: 20px;
-    font-size: 14px;
-    padding: 0 10px;
+    top: -8px;
 }
 
 /* Disparition du placeholder au focus */
@@ -703,3 +802,40 @@ hr {
     justify-content: space-between;
     align-items: center;
 } */
+
+
+
+/* Test Header responsive */
+/* @media (max-width: 768px) {
+    .navbar {
+        padding: 15px 20px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .burger {
+        display: block;
+        align-self: flex-end;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        margin: 15px 0;
+    }
+
+    .nav-links.show {
+        display: flex;
+    }
+
+    .nav-actions {
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+    }
+
+    .search-bar {
+        width: 100%;
+    }
+  } */
