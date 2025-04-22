@@ -19,7 +19,7 @@ Avant de déployer le projet en local, vous devez avoir les éléments suivants 
     Si vous n'avez pas encore cloné le projet, utilisez la commande suivante dans votre terminal :
 
     ```bash
-    git clone [https://github.com/Niftysoar/ECF-Esportify](https://github.com/Niftysoar/ECF-Esportify)
+    git clone https://github.com/Niftysoar/ECF-Esportify.git
     
     ```
 
