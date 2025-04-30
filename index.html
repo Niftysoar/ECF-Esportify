@@ -16,23 +16,47 @@
         <nav class="navbar">
             <a href="/"><img src="images/logo.png" alt="Esportify Logo" class="logo"></a>
             
-            <div class="burger" id="burger">
-                <i class="fa-solid fa-bars"></i>
-            </div>
-            
             <ul class="nav-links">
                 <li><a href="/lives">Lives</a></li>
                 <li><a href="/about">À propos</a></li>
-                <li><a href="#">Guides</a></li>
+                <li><a href="pages/dashboard.php">Test</a></li>
                 <li><a href="/contact">Contact</a></li>
             </ul>
 
             <div class="nav-actions">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" placeholder="Rechercher..." class="search-bar">
+                <div class="search-bar">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input class="search-input" type="search" placeholder="Rechercher...">
+                </div>
+
                 <a href="/signin" class="btn login">SE CONNECTER</a>
                 <a href="/signup" class="btn btn-highlight">S'INSCRIRE</a>
-              </div>
+            </div>
+
+            <div class="burger" id="burger">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+
+            <!-- Pour le responsive du header -->
+            <div class="dropdown-menu">
+                <div class="dropdown-links">
+                    <li><a href="/lives">Lives</a></li>
+                    <li><a href="/about">À propos</a></li>
+                    <li><a href="#">Guides</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </div>
+
+                <div class="dropdown-search-bar">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input class="search-input" type="search" placeholder="Rechercher...">
+                </div>
+
+                <div class="dropdown-actions">
+                    <li><a href="/signin" class="btn login">SE CONNECTER</a></li>
+                    <li><a href="/signup" class="btn btn-highlight">S'INSCRIRE</a></li>
+                </div>
+            </div>
+
         </nav>
     </header>
     
@@ -80,6 +104,6 @@
     <script src="Scripts/Swiper/swiper-bundle.min.js"></script>
     <script src="Scripts/Swiper/script.js"></script>
     <script type="module" src="Scripts/Routeur/Routeur.js"></script>
-    <!-- <script src="Scripts/script.js"></script> -->
+    <script src="Scripts/script.js"></script>
 </body>
 </html>

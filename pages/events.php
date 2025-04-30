@@ -14,20 +14,20 @@ try {
     $sql = "SELECT events.*, users.username
             FROM events
             JOIN users ON events.created_by = users.id
-            WHERE events.status = 'validé'";
+            WHERE events.status = 'valide'";
 
     // Ajout des conditions de filtrage
     if ($filter_player_count) {
         $sql .= " AND events.player_count >= :player_count";
     }
     if ($filter_date) {
-        $sql .= " AND DATE(events.start_date) = :date";
+        $sql .= " AND DATE(events.start_time) = :date";
     }
     if ($filter_username) {
         $sql .= " AND users.username LIKE :username";
     }
 
-    $sql .= " ORDER BY start_date ASC";
+    $sql .= " ORDER BY start_time ASC";
 
     $stmt = $pdo->prepare($sql);
 
@@ -62,14 +62,14 @@ try {
 }
 ?>
 
-        <h1 style="text-align: center; color: #fff; font-size: 2.5em;">Événements E-sport à venir</h1>
+        <h1>Événements E-sport à venir</h1>
 
         <!-- Formulaire de filtre -->
         <form id="filter-form" style="text-align: center; margin-bottom: 20px;">
-            <input type="number" id="filter-player-count" placeholder="Nombre de joueurs min" style="padding: 8px; margin: 5px;">
-            <input type="date" id="filter-date" style="padding: 8px; margin: 5px;">
-            <input type="text" id="filter-username" placeholder="Pseudo créateur" style="padding: 8px; margin: 5px;">
-            <button type="button" id="apply-filter" style="background-color: #00acee; color: #fff; padding: 10px 20px; border-radius: 4px;">Filtrer</button>
+            <input type="number" id="filter-player-count" placeholder="Nombre de joueurs min">
+            <input type="date" id="filter-date">
+            <input type="text" id="filter-username" placeholder="Pseudo créateur">
+            <button type="button" id="apply-filter">Filtrer</button>
         </form>
 
         <div class="event-list" id="event-list">
@@ -81,7 +81,7 @@ try {
                         <div class="event-meta">
                             <p><strong>Créé par :</strong> <?php echo htmlspecialchars($event['username']); ?></p>
                             <p><strong>Participants :</strong> <?php echo htmlspecialchars($event['player_count']); ?></p>
-                            <p><strong>Date :</strong> <?php echo htmlspecialchars($event['start_date']); ?> - <?php echo htmlspecialchars($event['end_date']); ?></p>
+                            <p><strong>Date :</strong> <?php echo htmlspecialchars($event['start_time']); ?> - <?php echo htmlspecialchars($event['end_date']); ?></p>
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -90,47 +90,49 @@ try {
             <?php endif; ?>
         </div>
 
-    <script>
-        document.getElementById('apply-filter').addEventListener('click', () => {
-            const playerCount = document.getElementById('filter-player-count').value;
-            const date = document.getElementById('filter-date').value;
-            const username = document.getElementById('filter-username').value;
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                document.getElementById('apply-filter').addEventListener('click', () => {
+                    const playerCount = document.getElementById('filter-player-count').value;
+                    const date = document.getElementById('filter-date').value;
+                    const username = document.getElementById('filter-username').value;
 
-            const params = new URLSearchParams({
-                player_count: playerCount,
-                date: date,
-                username: username
+                    const params = new URLSearchParams({
+                        player_count: playerCount,
+                        date: date,
+                        username: username
+                    });
+
+                    fetch('events.php?' + params.toString(), {
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        const eventList = document.getElementById('event-list');
+                        eventList.innerHTML = '';
+
+                        if (data.length > 0) {
+                            data.forEach(event => {
+                                const card = document.createElement('div');
+                                card.className = 'event-card';
+                                card.innerHTML = `
+                                    <h3 class="event-title">${event.title}</h3>
+                                    <p class="event-description">${event.description}</p>
+                                    <div class="event-meta">
+                                        <p><strong>Créé par :</strong> ${event.username}</p>
+                                        <p><strong>Participants :</strong> ${event.player_count}</p>
+                                        <p><strong>Date :</strong> ${event.start_time} - ${event.end_date}</p>
+                                    </div>
+                                `;
+                                eventList.appendChild(card);
+                            });
+                        } else {
+                            eventList.innerHTML = '<p style="text-align: center; color: #ccc;">Aucun événement à afficher pour le moment.</p>';
+                        }
+                    })
+                    .catch(error => console.error('Erreur :', error));
+                });
             });
-
-            fetch('events.php?' + params.toString(), {
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    const eventList = document.getElementById('event-list');
-                    eventList.innerHTML = '';
-
-                    if (data.length > 0) {
-                        data.forEach(event => {
-                            const card = document.createElement('div');
-                            card.className = 'event-card';
-                            card.innerHTML = `
-                                <h3 class="event-title">${event.title}</h3>
-                                <p class="event-description">${event.description}</p>
-                                <div class="event-meta">
-                                    <p><strong>Créé par :</strong> ${event.username}</p>
-                                    <p><strong>Participants :</strong> ${event.player_count}</p>
-                                    <p><strong>Date :</strong> ${event.start_date} - ${event.end_date}</p>
-                                </div>
-                            `;
-                            eventList.appendChild(card);
-                        });
-                    } else {
-                        eventList.innerHTML = '<p style="text-align: center; color: #ccc;">Aucun événement à afficher pour le moment.</p>';
-                    }
-                })
-                .catch(error => console.error('Erreur :', error));
-        });
-    </script>
+        </script>

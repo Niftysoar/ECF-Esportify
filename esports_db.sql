@@ -32,6 +32,21 @@ INSERT INTO `events` (`id`, `title`, `description`, `start_time`, `created_by`, 
 (1, 'Tournoi Rocket League', 'Tournoi 2v2 sur Rocket League', '2025-04-20 20:00:00', 2, 'valide', FALSE, '2025-04-20 19:30:00'),
 (2, 'Match FIFA', 'Petit match détente sur FIFA 23', '2025-04-25 18:00:00', 2, 'en_attente', FALSE, '2025-04-25 17:30:00');
 
+ALTER TABLE events
+ADD COLUMN player_count INT DEFAULT 0,
+ADD COLUMN end_date DATETIME DEFAULT NULL;
+
+-- Mise à jour des événements avec les nouvelles données
+UPDATE events
+SET player_count = 4,
+    end_date = '2025-04-20 22:00:00'
+WHERE id = 1;
+
+UPDATE events
+SET player_count = 2,
+    end_date = '2025-04-25 19:00:00'
+WHERE id = 2;
+
 -- Table des favoris (événements enregistrés par un joueur)
 CREATE TABLE favorites (
     user_id INT,

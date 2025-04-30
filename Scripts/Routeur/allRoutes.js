@@ -4,12 +4,11 @@ import Route from "./Route.js";
 export const allRoutes = [
     new Route("/", "Accueil", "/pages/home.html", []),
     new Route("/about", "A propos", "/pages/about.html", []),
-    new Route("/lives", "Lives", "/pages/lives.html", []),
+    new Route("/lives", "Lives", "/pages/events.php", []),
     new Route("/contact", "Contact", "/pages/contact.html", []),
-    new Route("/signin", "Connexion", "/pages/auth/signin.html", []),
-    new Route("/signup", "Inscription", "/pages/auth/signup.php", [], "/js/auth/signup.js"),
-    new Route("/account", "Mon compte", "/pages/auth/account.html", ["client", "admin"]),
-    new Route("/editPassword", "Changement de mot de passe", "/pages/auth/editPassword.html", ["client", "admin"]),
+    new Route("/signin", "Connexion", "/pages/signin.php", []),
+    new Route("/signup", "Inscription", "/pages/signup.php", [], "/js/auth/signup.js"),
+    new Route("/dashboard", "Mon compte", "/pages/dashboard.php", []),
 ];
 
 //Le titre s'affiche comme ceci : Route.titre - websitename
