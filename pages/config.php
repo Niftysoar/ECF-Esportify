@@ -1,5 +1,5 @@
 <?php
-$host = 'localhost:3306';  // Hôte de la base de données
+$host = 'localhost';  // Hôte de la base de données
 $dbname = 'esports_db';  // Nom de la base de données
 $username = 'root';  // Utilisateur
 $password = '';  // Mot de passe

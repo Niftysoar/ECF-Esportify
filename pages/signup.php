@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         ]);
 
         // Rediriger vers la page de connexion après l'inscription
-        header("Location: /signin"); // Redirige vers la page de connexion
+        header("Location: /signin");
         exit;
     }
 }
@@ -40,22 +40,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <section class="inscription">
         <h1>CREEZ-VOUS <span class="highlight">UN COMPTE</span></h1>
-        <form action="/signup" method="POST" class="form">
+        <form action="/pages/signup.php" method="POST" class="form">
             <div class="input-container">
-                <input type="text" name="username" required>
+                <input type="text" name="username" id="username" required>
                 <label class="label" for="username">Nom d'utilisateur</label>
             </div>
             <div class="input-container">
-                <input type="email" name="email" required>
-                <label class="label" for="email">Email</label>
+                <input type="email" name="email" id="email" required>
+                <label class="label" for="email">email</label>
             </div>
             <div class="input-container">
-                <input type="password" name="password" required>
+                <input type="password" name="password" id="password" required>
                 <label class="label" for="password">Entrez votre mot de passe</label>
-            </div>
-            <div class="input-container">
-                <input type="password" id="password" name="password" required>
-                <label class="label" for="password">Confirmez votre mot de passe</label>
             </div>
             <div class="other-container">
                 <button type="submit" class="btn btn-highlight">INSCRIRE</button>

@@ -1,3 +1,10 @@
+<?php
+session_start(); // ← INDISPENSABLE : démarre la session
+
+// Inclure le fichier de config
+include('pages/config.php');
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -19,7 +26,6 @@
             <ul class="nav-links">
                 <li><a href="/lives">Lives</a></li>
                 <li><a href="/about">À propos</a></li>
-                <li><a href="pages/dashboard.php">Test</a></li>
                 <li><a href="/contact">Contact</a></li>
             </ul>
 
@@ -28,9 +34,21 @@
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <input class="search-input" type="search" placeholder="Rechercher...">
                 </div>
-
-                <a href="/signin" class="btn login">SE CONNECTER</a>
-                <a href="/signup" class="btn btn-highlight">S'INSCRIRE</a>
+            
+                <?php
+                    if (isset($_SESSION['user_id'])) {
+                        $username = htmlspecialchars($_SESSION['username']);
+                        echo "
+                            <a href='/dashboard' class='btn login'>$username</a></li>
+                            <a href='/pages/logout.php' class='btn btn-highlight'>DECONNEXION</a></li>
+                        ";
+                    } else {
+                        echo "
+                            <li><a href='/signin' class='btn login'>SE CONNECTER</a></li>
+                            <li><a href='/signup' class='btn btn-highlight'>S'INSCRIRE</a></li>
+                        ";
+                    }
+                ?>
             </div>
 
             <div class="burger" id="burger">
@@ -42,7 +60,6 @@
                 <div class="dropdown-links">
                     <li><a href="/lives">Lives</a></li>
                     <li><a href="/about">À propos</a></li>
-                    <li><a href="#">Guides</a></li>
                     <li><a href="/contact">Contact</a></li>
                 </div>
 
@@ -52,11 +69,22 @@
                 </div>
 
                 <div class="dropdown-actions">
-                    <li><a href="/signin" class="btn login">SE CONNECTER</a></li>
-                    <li><a href="/signup" class="btn btn-highlight">S'INSCRIRE</a></li>
+                    <?php
+                    if (isset($_SESSION['user_id'])) {
+                        $username = htmlspecialchars($_SESSION['username']);
+                        echo "
+                            <a href='/dashboard' class='btn login'>$username</a></li>
+                            <a href='/pages/logout.php' class='btn btn-highlight'>DECONNEXION</a></li>
+                        ";
+                    } else {
+                        echo "
+                            <a href='/signin' class='btn login'>SE CONNECTER</a></li>
+                            <a href='/signup' class='btn btn-highlight'>S'INSCRIRE</a></li>
+                        ";
+                    }
+                    ?>
                 </div>
             </div>
-
         </nav>
     </header>
     
@@ -104,6 +132,7 @@
     <script src="Scripts/Swiper/swiper-bundle.min.js"></script>
     <script src="Scripts/Swiper/script.js"></script>
     <script type="module" src="Scripts/Routeur/Routeur.js"></script>
+    <script src="Scripts/DropMenu/script.js"></script>
     <script src="Scripts/script.js"></script>
 </body>
 </html>

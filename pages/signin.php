@@ -12,7 +12,7 @@ if (isset($_SESSION['user_id'])) {
     if ($_SESSION['role'] == 'admin') {
         header("Location: admin_dashboard.php");
     } else {
-        header("Location: /dashboard");
+        header("Location: /pages/dashboard.php");
     }
     exit();
 }
@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($user['role'] == 'admin') {
             header("Location: admin_dashboard.php"); // Tableau de bord admin
         } else {
-            header("Location: /dashboard"); // Tableau de bord utilisateur classique
+            header("Location: /pages/dashboard.php"); // Tableau de bord utilisateur classique
         }
         exit();
     } else {
@@ -46,7 +46,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
-
     <section class="connexion">
         <h1>CONTENTS DE <span class="highlight">VOUS VOIR !</span></h1>
 
@@ -54,10 +53,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="error"><?php echo $error; ?></div>
         <?php endif; ?>
 
-        <form method="POST" class="form">
+        <form action="/pages/signin.php" method="POST" class="form">
             <div class="input-container">
-                <input type="email" id="email" name="email" required>
-                <label class="label" for="email">Email</label>
+                <input type="text" id="username" name="username" required>
+                <label class="label" for="username">Nom d'utilisateur</label>
             </div>
             <div class="input-container">
                 <input type="password" id="password" name="password" required>

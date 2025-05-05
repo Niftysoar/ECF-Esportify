@@ -126,7 +126,7 @@ header{
 .btn-highlight {
     display: inline-block;
     padding: 15px 30px;
-    font-family: 'GT Walsheim Pro', sans-serif;;
+    font-family: 'GT Walsheim Pro', sans-serif;
     text-transform: uppercase;
     border: none;
     cursor: pointer;
@@ -184,11 +184,11 @@ header{
 }
 
 .dropdown-menu.open{
-    height: 520px;
+    height: 400px;
 }
 
 .dropdown-menu li{
-    padding: 15px 0;
+    padding: 20px 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -216,16 +216,17 @@ header{
 }
 
 .dropdown-search-bar:focus-within {
-    outline: 2px solid #FF4A4A;
+    outline: 2px solid #FF4C4C;
 }
 
 .dropdown-actions{
     display: flex;
     justify-content: center;
+    margin: 40px 10px;
 }
 
 /* RESPONSIVE DU HEADER */
-@media (max-width: 992px) {
+@media (max-width: 1190px) {
     .nav-links,
     .navbar .nav-actions {
         display: none;
@@ -367,9 +368,22 @@ header{
     color: #acacac;
 }
 
-.stat {
-    font-size: 24px;
-    color: white;
+.hero-stat {
+    margin-top: 3rem;
+    text-align: center;
+}
+
+.stat-number {
+    font-family: 'StratumNo1', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #FF4C4C;
+    display: block;
+}
+
+.stat-text {
+    font-size: 1rem;
+    color: #ccc;
 }
 
 /* Image */
@@ -377,26 +391,6 @@ header{
     flex: 1;
     display: flex;
     justify-content: center;
-}
-
-.hero-image img {
-    width: 100%;
-    max-width: 590px;
-}
-
-/* Hero section */
-.hero-content h1 {
-    text-align: left;
-}
-
-.highlight {
-    color: #FF4C4C;
-}
-
-.stat {
-    color: #FF4C4C;
-    font-weight: bold;
-    font-size: 40px;
 }
 
 .hero-image img {
@@ -441,8 +435,12 @@ header{
         margin: 20px 0;
     }
 
-    .hero .stat {
-        font-size: 30px;
+    .stat-number {
+        font-size: 2.2rem;
+    }
+
+    .stat-text {
+        font-size: 0.95rem;
     }
 
     .partners {
@@ -466,8 +464,12 @@ header{
         line-height: 22px;
     }
 
-    .hero .stat {
-        font-size: 24px;
+    .stat-number {
+        font-size: 1.8rem;
+    }
+
+    .stat-text {
+        font-size: 0.9rem;
     }
 
     .partners {
@@ -855,7 +857,6 @@ input:valid ~ .label {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 15px;
     flex-wrap: wrap;
 }
 

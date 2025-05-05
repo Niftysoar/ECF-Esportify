@@ -1,3 +1,5 @@
+START TRANSACTION;
+
 -- Table des utilisateurs
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
