@@ -1,7 +1,7 @@
 <?php
 // Démarre la session
 session_start();
-include('config.php');
+include('../config.php');
 
 // Vérification si le formulaire est soumis
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <section class="inscription">
         <h1>CREEZ-VOUS <span class="highlight">UN COMPTE</span></h1>
-        <form action="/pages/signup.php" method="POST" class="form">
+        <form action="/pages/auth/signup.php" method="POST" class="form">
             <div class="input-container">
                 <input type="text" name="username" id="username" required>
                 <label class="label" for="username">Nom d'utilisateur</label>

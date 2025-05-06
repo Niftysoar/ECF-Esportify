@@ -62,14 +62,16 @@ try {
 }
 ?>
 
-        <h1>Événements E-sport à venir</h1>
+    <section class="live-page">
+
+        <h1 class="live-title">Événements E-sport à venir</h1>
 
         <!-- Formulaire de filtre -->
-        <form id="filter-form" style="text-align: center; margin-bottom: 20px;">
+        <form id="filter-form" class="live-filters">
             <input type="number" id="filter-player-count" placeholder="Nombre de joueurs min">
             <input type="date" id="filter-date">
             <input type="text" id="filter-username" placeholder="Pseudo créateur">
-            <button type="button" id="apply-filter">Filtrer</button>
+            <button type="button" id="apply-filter">Rechercher</button>
         </form>
 
         <div class="event-list" id="event-list">
@@ -79,16 +81,17 @@ try {
                         <h3 class="event-title"><?php echo htmlspecialchars($event['title']); ?></h3>
                         <p class="event-description"><?php echo htmlspecialchars($event['description']); ?></p>
                         <div class="event-meta">
-                            <p><strong>Créé par :</strong> <?php echo htmlspecialchars($event['username']); ?></p>
-                            <p><strong>Participants :</strong> <?php echo htmlspecialchars($event['player_count']); ?></p>
-                            <p><strong>Date :</strong> <?php echo htmlspecialchars($event['start_time']); ?> - <?php echo htmlspecialchars($event['end_date']); ?></p>
+                            <p><strong>Organisé par :</strong> <?php echo htmlspecialchars($event['username']); ?></p>
+                            <p><i class="fa-solid fa-user-group"></i> <?php echo htmlspecialchars($event['player_count']); ?></p>
+                            <p><i class="fa-regular fa-calendar"></i> Le <?php echo date('d/m/Y', strtotime($event['start_time'])); ?> de <?php echo date('H:i', strtotime($event['start_time'])); ?> à <?php echo date('H:i', strtotime($event['end_date'])); ?></p>
                         </div>
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>
-                <p style="text-align: center; color: #ccc;">Aucun événement à afficher pour le moment.</p>
+                <p class="no-event">Aucun événement à afficher pour le moment.</p>
             <?php endif; ?>
         </div>
+    </section>
 
         <script>
             document.addEventListener('DOMContentLoaded', () => {

@@ -900,12 +900,25 @@ p a:hover {
 }
 
 /* PAGE DES LIVES */
+.live-page {
+    max-width: 1300px;
+    margin: auto;
+    padding: 40px 20px;
+    color: #fff;
+}
+
+.live-title {
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+}
+
 form#filter-form {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 10px;
-    margin-bottom: 30px;
+    gap: 15px;
+    margin-bottom: 40px;
 }
 
 form#filter-form input,
@@ -936,8 +949,8 @@ form#filter-form button:hover {
 
 .event-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+    gap: 25px;
     padding: 0 30px 80px;
 }
 
@@ -954,19 +967,18 @@ form#filter-form button:hover {
 
 .event-title {
     font-size: 1.5rem;
-    margin-bottom: 10px;
-    color: #ff4c4c;
+    margin: 5px 0;
 }
 
 .event-description {
     color: #ccc;
-    margin-bottom: 15px;
+    margin: 15px 0;
     font-size: 0.95rem;
 }
 
 .event-meta p {
     font-size: 0.95rem;
-    margin: 4px 0;
+    margin-bottom: 5px;
     color: #ccc;
 }
 

@@ -39,13 +39,13 @@ include('pages/config.php');
                     if (isset($_SESSION['user_id'])) {
                         $username = htmlspecialchars($_SESSION['username']);
                         echo "
-                            <a href='/dashboard' class='btn login'>$username</a></li>
-                            <a href='/pages/logout.php' class='btn btn-highlight'>DECONNEXION</a></li>
+                            <a href='/dashboard' class='btn login'>$username</a>
+                            <a href='/pages/logout.php' class='btn btn-highlight'>DECONNEXION</a>
                         ";
                     } else {
                         echo "
-                            <li><a href='/signin' class='btn login'>SE CONNECTER</a></li>
-                            <li><a href='/signup' class='btn btn-highlight'>S'INSCRIRE</a></li>
+                            <a href='/signin' class='btn login'>SE CONNECTER</a>
+                            <a href='/signup' class='btn btn-highlight'>S'INSCRIRE</a>
                         ";
                     }
                 ?>
@@ -73,13 +73,13 @@ include('pages/config.php');
                     if (isset($_SESSION['user_id'])) {
                         $username = htmlspecialchars($_SESSION['username']);
                         echo "
-                            <a href='/dashboard' class='btn login'>$username</a></li>
-                            <a href='/pages/logout.php' class='btn btn-highlight'>DECONNEXION</a></li>
+                            <a href='/dashboard' class='btn login'>$username</a>
+                            <a href='/pages/logout.php' class='btn btn-highlight'>DECONNEXION</a>
                         ";
                     } else {
                         echo "
-                            <a href='/signin' class='btn login'>SE CONNECTER</a></li>
-                            <a href='/signup' class='btn btn-highlight'>S'INSCRIRE</a></li>
+                            <a href='/signin' class='btn login'>SE CONNECTER</a>
+                            <a href='/signup' class='btn btn-highlight'>S'INSCRIRE</a>
                         ";
                     }
                     ?>
@@ -129,10 +129,18 @@ include('pages/config.php');
         </div>
     </footer>  
 
+    <!-- Swiper.js for carousels -->
     <script src="Scripts/Swiper/swiper-bundle.min.js"></script>
     <script src="Scripts/Swiper/script.js"></script>
+
+    <!-- Custom Router (module JS) -->
     <script type="module" src="Scripts/Routeur/Routeur.js"></script>
+
+    <!-- Dropdown Menu -->
     <script src="Scripts/DropMenu/script.js"></script>
+
+    <!-- Global site behavior -->
     <script src="Scripts/script.js"></script>
+
 </body>
 </html>

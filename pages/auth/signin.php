@@ -4,7 +4,7 @@
 session_start();
 
 // Inclure le fichier de configuration pour la base de données
-require_once('config.php');
+require_once('../config.php');
 
 // Vérifier si l'utilisateur est déjà connecté
 if (isset($_SESSION['user_id'])) {
@@ -12,7 +12,7 @@ if (isset($_SESSION['user_id'])) {
     if ($_SESSION['role'] == 'admin') {
         header("Location: admin_dashboard.php");
     } else {
-        header("Location: /pages/dashboard.php");
+        header("Location: /dashboard");
     }
     exit();
 }
@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($user['role'] == 'admin') {
             header("Location: admin_dashboard.php"); // Tableau de bord admin
         } else {
-            header("Location: /pages/dashboard.php"); // Tableau de bord utilisateur classique
+            header("Location: /dashboard"); // Tableau de bord utilisateur classique
         }
         exit();
     } else {
@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="error"><?php echo $error; ?></div>
         <?php endif; ?>
 
-        <form action="/pages/signin.php" method="POST" class="form">
+        <form action="/pages/auth/signin.php" method="POST" class="form">
             <div class="input-container">
                 <input type="text" id="username" name="username" required>
                 <label class="label" for="username">Nom d'utilisateur</label>
