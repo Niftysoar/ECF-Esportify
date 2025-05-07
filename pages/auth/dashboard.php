@@ -7,7 +7,7 @@ session_start();
 
 // Vérifier si l'utilisateur est connecté
 if (!isset($_SESSION['user_id'])) {
-    header('Location: signin.php');  // Rediriger si l'utilisateur n'est pas connecté
+    header('Location: /signin');  // Rediriger si l'utilisateur n'est pas connecté
     exit();
 }
 
@@ -60,102 +60,100 @@ $scores = $stmt_scores->fetchAll();
 
 ?>
 
-    <h1>Mon Tableau de Bord</h1>
+    <section class="dashboard">
+        <h1>Mon Tableau de Bord</h1>
 
-    <div class="container">
-        <div class="dashboard-header">
-            <!-- Bouton pour créer un nouvel événement -->
-            <a href="/create" class="button">Créer un Nouvel Événement</a>
+        <div class="container">
+
+            <div class="dashboard-header">
+                <a href="/create" class="button">Créer un Nouvel Événement</a>
+            </div>
+
+            <!-- Mes événements -->
+            <h2>Mes Événements</h2>
+            <div class="event-list">
+                <?php if ($events_user): ?>
+                    <?php foreach ($events_user as $event): ?>
+                        <div class="event-card">
+                            <h3 class="event-title"><?= htmlspecialchars($event['title']); ?></h3>
+                            <p class="event-description"><?= htmlspecialchars($event['description']); ?></p>
+                            <div class="event-meta">
+                                <p><strong>Status :</strong>
+                                    <span class="event-status <?= strtolower($event['status']); ?>">
+                                        <?= htmlspecialchars($event['status']); ?>
+                                    </span>
+                                </p>
+                                <p><i class="fa-solid fa-user-group"></i> <?= htmlspecialchars($event['player_count']); ?></p>
+                                <p><i class="fa-regular fa-calendar"></i> Le <?= date('d/m/Y', strtotime($event['start_time'])); ?> de <?= date('H:i', strtotime($event['start_time'])); ?> à <?= date('H:i', strtotime($event['end_date'])); ?></p>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <p class="no-event">Aucun événement trouvé.</p>
+                <?php endif; ?>
+            </div>
+
+            <!-- Tous les événements validés -->
+            <h2>Tous les Événements Validés</h2>
+            <div class="event-list">
+                <?php if ($events_all): ?>
+                    <?php foreach ($events_all as $event): ?>
+                        <div class="event-card">
+                            <h3 class="event-title"><?= htmlspecialchars($event['title']); ?></h3>
+                            <p class="event-description"><?= htmlspecialchars($event['description']); ?></p>
+                            <div class="event-meta">
+                                <p><strong>Organisé par :</strong> <?= htmlspecialchars($event['created_by']); ?></p>
+                                <p><i class="fa-solid fa-user-group"></i> <?= htmlspecialchars($event['player_count']); ?></p>
+                                <p><i class="fa-regular fa-calendar"></i> Le <?= date('d/m/Y', strtotime($event['start_time'])); ?> de <?= date('H:i', strtotime($event['start_time'])); ?> à <?= date('H:i', strtotime($event['end_date'])); ?></p>
+                            </div>
+                            <div class="event-actions">
+                                <a href="join_event.php?event_id=<?= $event['id'] ?>" class="button">Rejoindre</a>
+                                <a href="chat_event.php?event_id=<?= $event['id'] ?>" class="button">Chat</a>
+                                <a href="dashboard.php?add_favorite=<?= $event['id']; ?>" class="button">Favoris</a>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <p class="no-event">Aucun événement validé.</p>
+                <?php endif; ?>
+            </div>
+
+            <!-- Favoris -->
+            <h2>Événements Favoris</h2>
+            <div class="event-list">
+                <?php if ($favorites): ?>
+                    <?php foreach ($favorites as $event): ?>
+                        <div class="event-card">
+                            <h3 class="event-title"><?= htmlspecialchars($event['title']); ?></h3>
+                            <p class="event-description"><?= htmlspecialchars($event['description']); ?></p>
+                            <div class="event-meta">
+                                <p><i class="fa-solid fa-user-group"></i> <?= htmlspecialchars($event['player_count']); ?></p>
+                                <p><i class="fa-regular fa-calendar"></i> Le <?= date('d/m/Y', strtotime($event['start_time'])); ?> de <?= date('H:i', strtotime($event['start_time'])); ?> à <?= date('H:i', strtotime($event['end_date'])); ?></p>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <p class="no-event">Aucun événement favori pour le moment.</p>
+                <?php endif; ?>
+            </div>
+
+            <!-- Scores -->
+            <h2>Historique des Scores</h2>
+            <div class="event-list">
+                <?php if ($scores): ?>
+                    <?php foreach ($scores as $score): ?>
+                        <div class="event-card">
+                            <h3 class="event-title"><?= htmlspecialchars($score['event_title']); ?></h3>
+                            <div class="event-meta">
+                                <p><strong>Date :</strong> <?= date('d/m/Y H:i', strtotime($score['start_time'])); ?> - <?= date('H:i', strtotime($score['end_date'])); ?></p>
+                                <p><strong>Score :</strong> <?= htmlspecialchars($score['score']); ?></p>
+                                <p><strong>Joueur :</strong> <?= htmlspecialchars($score['username']); ?></p>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <p class="no-event">Aucun score enregistré.</p>
+                <?php endif; ?>
+            </div>
         </div>
-
-        <h2>Mes Événements</h2>
-
-        <?php if ($events_user): ?>
-            <?php foreach ($events_user as $event): ?>
-                <div class="event-card">
-                    <h2><?= htmlspecialchars($event['title']); ?></h2>
-                    <p><strong>Description :</strong> <?= htmlspecialchars($event['description']); ?></p>
-                    <p><strong>Date de début :</strong> <?= htmlspecialchars($event['start_time']); ?></p>
-                    <p><strong>Date de fin :</strong> <?= htmlspecialchars($event['end_date']); ?></p>
-                    <p><strong>Nombre de joueurs :</strong> <?= htmlspecialchars($event['player_count']); ?></p>
-                    <p><strong>Status :</strong>
-                        <span class="event-status <?= strtolower($event['status']); ?>">
-                            <?= htmlspecialchars($event['status']); ?>
-                        </span>
-                    </p>
-                    <div class="event-card-footer">
-                        <p><strong>Créé par :</strong> <?= htmlspecialchars($event['created_by']); ?></p>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <p>Aucun événement validé trouvé.</p>
-        <?php endif; ?>
-
-        <h2>Tous les Événements Validés</h2>
-
-        <?php if ($events_all): ?>
-            <?php foreach ($events_all as $event): ?>
-                <div class="event-card">
-                    <h2><?= htmlspecialchars($event['title']); ?></h2>
-                    <p><strong>Description :</strong> <?= htmlspecialchars($event['description']); ?></p>
-                    <p><strong>Date de début :</strong> <?= htmlspecialchars($event['start_time']); ?></p>
-                    <p><strong>Date de fin :</strong> <?= htmlspecialchars($event['end_date']); ?></p>
-                    <p><strong>Nombre de joueurs :</strong> <?= htmlspecialchars($event['player_count']); ?></p>
-                    <p><strong>Status :</strong>
-                        <span class="event-status <?= strtolower($event['status']); ?>">
-                            <?= htmlspecialchars($event['status']); ?>
-                        </span>
-                    </p>
-                    <div class="event-card-footer">
-                        <p><strong>Créé par :</strong> <?= htmlspecialchars($event['created_by']); ?></p>
-                    </div>
-                    <a href="join_event.php?event_id=<?= $event['id'] ?>" class="button">Rejoindre l'événement</a>
-                    <a href="chat_event.php?event_id=<?= $event['id'] ?>" class="button">Rejoindre le chat</a>
-                    <a href="dashboard.php?add_favorite=<?= $event['id']; ?>" class="button">Mettre en favoris</a>
-
-                </div>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <p>Aucun événement validé pour le moment.</p>
-        <?php endif; ?>
-    </div>
-    <h2>Événements Favoris</h2>
-
-    <?php if ($favorites): ?>
-        <?php foreach ($favorites as $event): ?>
-            <div class="event-card">
-                <h2><?= htmlspecialchars($event['title']); ?></h2>
-                <p><strong>Description :</strong> <?= htmlspecialchars($event['description']); ?></p>
-                <p><strong>Date de début :</strong> <?= htmlspecialchars($event['start_time']); ?></p>
-                <p><strong>Date de fin :</strong> <?= htmlspecialchars($event['end_date']); ?></p>
-                <p><strong>Nombre de joueurs :</strong> <?= htmlspecialchars($event['player_count']); ?></p>
-                <p><strong>Status :</strong>
-                    <span class="event-status <?= strtolower($event['status']); ?>">
-                        <?= htmlspecialchars($event['status']); ?>
-                    </span>
-                </p>
-                <div class="event-card-footer">
-
-                </div>
-            </div>
-        <?php endforeach; ?>
-    <?php else: ?>
-        <p>Aucun événement favori pour le moment.</p>
-    <?php endif; ?>
-
-
-    <h2>Historique des Scores</h2>
-
-    <?php if ($scores): ?>
-        <?php foreach ($scores as $score): ?>
-            <div class="score-card">
-                <h3><?= htmlspecialchars($score['event_title']); ?></h3>
-                <p><strong>Date de l'événement :</strong> <?= htmlspecialchars($score['start_time']); ?> - <?= htmlspecialchars($score['end_date']); ?></p>
-                <p><strong>Score :</strong> <?= htmlspecialchars($score['score']); ?></p>
-                <p><strong>Joueur :</strong> <?= htmlspecialchars($score['username']); ?></p>
-            </div>
-        <?php endforeach; ?>
-    <?php else: ?>
-        <p>Aucun score enregistré.</p>
-    <?php endif; ?>
+    </section>

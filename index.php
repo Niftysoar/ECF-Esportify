@@ -40,7 +40,7 @@ include('pages/config.php');
                         $username = htmlspecialchars($_SESSION['username']);
                         echo "
                             <a href='/dashboard' class='btn login'>$username</a>
-                            <a href='/pages/logout.php' class='btn btn-highlight'>DECONNEXION</a>
+                            <a href='/pages/auth/logout.php' class='btn btn-highlight'>DECONNEXION</a>
                         ";
                     } else {
                         echo "
@@ -74,7 +74,7 @@ include('pages/config.php');
                         $username = htmlspecialchars($_SESSION['username']);
                         echo "
                             <a href='/dashboard' class='btn login'>$username</a>
-                            <a href='/pages/logout.php' class='btn btn-highlight'>DECONNEXION</a>
+                            <a href='/pages/auth/logout.php' class='btn btn-highlight'>DECONNEXION</a>
                         ";
                     } else {
                         echo "

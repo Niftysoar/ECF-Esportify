@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 
     <section class="inscription">
-        <h1>CREEZ-VOUS <span class="highlight">UN COMPTE</span></h1>
+        <h1>Créez-vous <span class="highlight">un compte</span></h1>
         <form action="/pages/auth/signup.php" method="POST" class="form">
             <div class="input-container">
                 <input type="text" name="username" id="username" required>

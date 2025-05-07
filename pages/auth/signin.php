@@ -10,7 +10,7 @@ require_once('../config.php');
 if (isset($_SESSION['user_id'])) {
     // Rediriger vers le tableau de bord en fonction du rôle
     if ($_SESSION['role'] == 'admin') {
-        header("Location: admin_dashboard.php");
+        header("Location: /admin");
     } else {
         header("Location: /dashboard");
     }
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Rediriger vers le tableau de bord en fonction du rôle
         if ($user['role'] == 'admin') {
-            header("Location: admin_dashboard.php"); // Tableau de bord admin
+            header("Location: /admin"); // Tableau de bord admin
         } else {
             header("Location: /dashboard"); // Tableau de bord utilisateur classique
         }
@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 
     <section class="connexion">
-        <h1>CONTENTS DE <span class="highlight">VOUS VOIR !</span></h1>
+        <h1>Contents de <span class="highlight">vous voir !</span></h1>
 
         <?php if (isset($error)): ?>
                 <div class="error"><?php echo $error; ?></div>

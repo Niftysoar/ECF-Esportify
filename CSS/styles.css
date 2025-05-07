@@ -28,6 +28,7 @@ p{
 
 /*Titres*/
 h1, h2 {
+    text-transform: uppercase;
     font-family: 'StratumNo1', sans-serif;
 }
 
@@ -747,7 +748,7 @@ header{
 }
 
 /* Connexion + Inscription + Contact form */
-.connexion , .inscription, .contact {
+.connexion , .inscription, .contact{
     padding: 10% 5%;
     text-align: center;
 }
@@ -984,6 +985,72 @@ form#filter-form button:hover {
 
 .event-meta strong {
     color: #fff;
+}
+/* DASHBOARD */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* ADMIN DASHBOARD */
+.admin {
+    max-width: 1500px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.admin h1 {
+    margin-bottom: 40px;
+}
+
+table {
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: #1A1A1A;
+}
+
+th,
+td {
+    padding: 15px 20px;
+    text-align: left;
+}
+
+th {
+    background-color: #303030;
+    color: #fff;
+}
+
+tr:nth-child(even) {
+    background-color: #111;
+}
+
+.btn-accept,
+.btn-reject {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-accept {
+    background-color: #2ecc71;
+    color: #fff;
+}
+
+.btn-reject {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+.btn-accept:hover {
+    background-color: #27ae60;
+}
+
+.btn-reject:hover {
+    background-color: #c0392b;
 }
 
 /* Footer */

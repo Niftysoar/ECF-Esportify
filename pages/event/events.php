@@ -2,7 +2,7 @@
 // events.php
 
 session_start();
-require_once('config.php');
+require_once('../config.php');
 
 // Initialisation des filtres
 $filter_player_count = isset($_GET['player_count']) ? $_GET['player_count'] : '';
@@ -64,7 +64,7 @@ try {
 
     <section class="live-page">
 
-        <h1 class="live-title">Événements E-sport à venir</h1>
+        <h1 class="live-title">Événements E-sport <span class="highlight">à venir</span></h1>
 
         <!-- Formulaire de filtre -->
         <form id="filter-form" class="live-filters">
