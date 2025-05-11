@@ -64,14 +64,39 @@ try {
 
     <section class="live-page">
 
-        <h1 class="live-title">Événements E-sport <span class="highlight">à venir</span></h1>
+        <h1 class="live-title">Événements E-sport <span class="highlight"><br>à venir</span></h1>
 
         <!-- Formulaire de filtre -->
-        <form id="filter-form" class="live-filters">
-            <input type="number" id="filter-player-count" placeholder="Nombre de joueurs min">
-            <input type="date" id="filter-date">
-            <input type="text" id="filter-username" placeholder="Pseudo créateur">
-            <button type="button" id="apply-filter">Rechercher</button>
+        <form id="filter-form" class="filter-bar">
+            <div class="filter-group">
+                <label for="filter-username">Créateur</label>
+                <select id="filter-username" name="username">
+                    <option value="">Tout</option>
+                    <!-- Options dynamiques en PHP si besoin -->
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="filter-date">Date</label>
+                <select id="filter-date" name="date">
+                    <option value="">Tout</option>
+                    <!-- Exemples -->
+                    <option value="<?= date('Y-m-d') ?>">Aujourd'hui</option>
+                    <option value="<?= date('Y-m-d', strtotime('+1 day')) ?>">Demain</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="filter-player-count">Nombre de joueurs</label>
+                <select id="filter-player-count" name="player_count">
+                    <option value="">Tout</option>
+                    <option value="2">2+</option>
+                    <option value="4">4+</option>
+                    <option value="8">8+</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-highlight">FILTRER</button>
         </form>
 
         <div class="event-list" id="event-list">

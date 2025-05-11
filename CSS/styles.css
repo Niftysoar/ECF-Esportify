@@ -8,7 +8,7 @@
 }
 
 html{
-    background-color: #111;
+    background-color: #0b0b0b;
     position: relative;
     min-height: 100%;
 }
@@ -75,6 +75,7 @@ header{
     text-decoration: none;
     color: white;
     font-size: 16px;
+    transition: color 0.3s;
 }
 
 .nav-links li a:hover {
@@ -199,6 +200,7 @@ header{
     text-decoration: none;
     color: white;
     font-size: 32px;
+    transition: color 0.3s;
 }
 
 .dropdown-menu .dropdown-links a:hover{
@@ -388,13 +390,15 @@ header{
 }
 
 /* Image */
-.hero-image {
+.hero-image,
+.about-image img {
     flex: 1;
     display: flex;
     justify-content: center;
 }
 
-.hero-image img {
+.hero-image img,
+.about-image img {
     width: 100%;
     max-width: 590px;
     height: auto;
@@ -507,12 +511,6 @@ header{
 
 .highlight {
     color: #FF4C4C;
-}
-
-.about-image img {
-    width: 100%;
-    max-width: 645px;
-    height: auto;
 }
 
 @media (max-width: 768px) {
@@ -914,49 +912,54 @@ p a:hover {
     margin-bottom: 30px;
 }
 
-form#filter-form {
+.filter-bar {
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
-    gap: 15px;
-    margin-bottom: 40px;
+    gap: 30px;
+    flex-wrap: wrap;
+    background-color: #111;
+    padding: 50px;
 }
 
-form#filter-form input,
-form#filter-form button {
-    padding: 10px 15px;
-    font-size: 1rem;
-    border: none;
-    border-radius: 5px;
-    outline: none;
-}
-
-form#filter-form input {
-    background-color: #1A1A1A;
-    color: #fff;
-    border: 1px solid #444;
-}
-
-form#filter-form button {
-    background-color: #ff4c4c;
+.filter-group {
+    display: flex;
+    flex-direction: column;
     color: white;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
 }
 
-form#filter-form button:hover {
-    background-color: #e63939;
+.filter-group label {
+    font-size: 14px;
+    margin-bottom: 5px;
 }
+
+.filter-group select {
+    padding: 10px 12px;
+    background-color: #1a1a1a;
+    color: white;
+    border: 1px solid #3E3E3E;
+    font-family: inherit;
+    font-size: 14px;
+    width: 180px;
+    cursor: pointer;
+}
+
+.filter-group select:focus {
+    outline: none;
+    border-color: #ff4c4c;
+}
+
 
 .event-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
-    gap: 25px;
-    padding: 0 30px 80px;
+    gap: 60px;
+    padding: 0 30px;
+    margin: 40px;
 }
 
 .event-card {
     background-color: #1A1A1A;
+    border: #FF4C4C 2px solid;
     padding: 25px;
     border-radius: 12px;
     transition: transform 0.2s ease-in-out;
@@ -987,16 +990,35 @@ form#filter-form button:hover {
     color: #fff;
 }
 /* DASHBOARD */
+.dashboard{
+    margin: 5% auto;
+    text-align: center;
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 40px 20px;
 }
 
+.container .event-card {
+    text-align: left;
+}
+.dashboard h2 {
+    margin: 50px 0;
+}
+
+.event-actions {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
 /* ADMIN DASHBOARD */
 .admin {
     max-width: 1500px;
-    margin: 60px auto;
+    margin: 5% auto;
     padding: 0 20px;
 }
 
@@ -1029,6 +1051,7 @@ tr:nth-child(even) {
 .btn-accept,
 .btn-reject {
     padding: 8px 16px;
+    color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -1036,21 +1059,19 @@ tr:nth-child(even) {
 }
 
 .btn-accept {
-    background-color: #2ecc71;
-    color: #fff;
+    background-color: #00A539;
 }
 
 .btn-reject {
-    background-color: #e74c3c;
-    color: #fff;
+    background-color: #DD0012;
 }
 
 .btn-accept:hover {
-    background-color: #27ae60;
+    background-color: rgba(0, 165, 57, 0.6);
 }
 
 .btn-reject:hover {
-    background-color: #c0392b;
+    background-color: rgba(221, 0, 18, 0.6);
 }
 
 /* Footer */

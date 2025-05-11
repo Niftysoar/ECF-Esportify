@@ -61,16 +61,16 @@ $scores = $stmt_scores->fetchAll();
 ?>
 
     <section class="dashboard">
-        <h1>Mon Tableau de Bord</h1>
+        <h1>Mon Tableau <span class="highlight">de Bord</span></h1>
 
         <div class="container">
 
             <div class="dashboard-header">
-                <a href="/create" class="button">Créer un Nouvel Événement</a>
+                <a href="/admin" class="btn btn-highlight">ADMIN</a>
             </div>
 
             <!-- Mes événements -->
-            <h2>Mes Événements</h2>
+            <h2>Mes <span class="highlight">Événements</span></h2>
             <div class="event-list">
                 <?php if ($events_user): ?>
                     <?php foreach ($events_user as $event): ?>
@@ -93,8 +93,10 @@ $scores = $stmt_scores->fetchAll();
                 <?php endif; ?>
             </div>
 
+            <a href="/create" class="btn btn-highlight">Créer un Événement</a>
+
             <!-- Tous les événements validés -->
-            <h2>Tous les Événements Validés</h2>
+            <h2>Tous les Événements <span class="highlight">Validés</span></h2>
             <div class="event-list">
                 <?php if ($events_all): ?>
                     <?php foreach ($events_all as $event): ?>
@@ -119,7 +121,7 @@ $scores = $stmt_scores->fetchAll();
             </div>
 
             <!-- Favoris -->
-            <h2>Événements Favoris</h2>
+            <h2>Événements <span class="highlight">Favoris</span></h2>
             <div class="event-list">
                 <?php if ($favorites): ?>
                     <?php foreach ($favorites as $event): ?>
@@ -138,7 +140,7 @@ $scores = $stmt_scores->fetchAll();
             </div>
 
             <!-- Scores -->
-            <h2>Historique des Scores</h2>
+            <h2>Historique <span class="highlight">des Scores</span></h2>
             <div class="event-list">
                 <?php if ($scores): ?>
                     <?php foreach ($scores as $score): ?>

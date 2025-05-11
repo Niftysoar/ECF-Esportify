@@ -6,8 +6,8 @@ require_once('../config.php');
 session_start();
 
 // Vérifier si l'utilisateur est connecté et a les droits admin
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
-    header('Location: /signin'); // Rediriger vers la page de connexion si l'utilisateur n'est pas un admin
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
+    header('Location: /'); // Rediriger vers la page de connexion si l'utilisateur n'est pas un admin
     exit;
 }
 
@@ -39,8 +39,41 @@ $pendingEvents = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <section class="admin">
 
         <h1>
-            Événements en <span class="highlight">attente de validation</span>
+            Événements en <span class="highlight">attente <br>de validation</span>
         </h1>
+
+        <!-- Formulaire de filtre -->
+        <form id="filter-form" class="filter-bar">
+            <div class="filter-group">
+                <label for="filter-username">Créateur</label>
+                <select id="filter-username" name="username">
+                    <option value="">Tout</option>
+                    <!-- Options dynamiques en PHP si besoin -->
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="filter-date">Date</label>
+                <select id="filter-date" name="date">
+                    <option value="">Tout</option>
+                    <!-- Exemples -->
+                    <option value="<?= date('Y-m-d') ?>">Aujourd'hui</option>
+                    <option value="<?= date('Y-m-d', strtotime('+1 day')) ?>">Demain</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="filter-player-count">Nombre de joueurs</label>
+                <select id="filter-player-count" name="player_count">
+                    <option value="">Tout</option>
+                    <option value="2">2+</option>
+                    <option value="4">4+</option>
+                    <option value="8">8+</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-highlight">FILTRER</button>
+        </form>
 
         <?php if (!empty($pendingEvents)): ?>
             <table>
