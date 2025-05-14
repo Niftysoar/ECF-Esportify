@@ -5,6 +5,13 @@ include('../config.php');
 // Démarrer la session
 session_start();
 
+// Affichage d'une erreur s’il y en a en session
+$error = null;
+if (isset($_SESSION['error_message'])) {
+    $error = $_SESSION['error_message'];
+    unset($_SESSION['error_message']);
+}
+
 // Vérifier si l'utilisateur est connecté
 if (!isset($_SESSION['user_id'])) {
     header('Location: /signin');  // Rediriger si l'utilisateur n'est pas connecté
@@ -63,6 +70,14 @@ $scores = $stmt_scores->fetchAll();
     <section class="dashboard">
         <h1>Mon Tableau <span class="highlight">de Bord</span></h1>
 
+        <!-- Pop-up d'erreur -->
+        <?php if ($error): ?>
+            <div class="popup-error" id="popupError">
+                <p><?= htmlspecialchars($error) ?></p>
+                <button class="btn btn-highlight" onclick="document.getElementById('popupError').style.display='none'">Fermer</button>
+            </div>
+        <?php endif; ?>
+
         <div class="container">
 
             <div class="dashboard-header">
@@ -70,7 +85,7 @@ $scores = $stmt_scores->fetchAll();
             </div>
 
             <!-- Mes événements -->
-            <h2>Mes <span class="highlight">Événements</span></h2>
+            <h2>Tous Mes <span class="highlight">Événements</span></h2>
             <div class="event-list">
                 <?php if ($events_user): ?>
                     <?php foreach ($events_user as $event): ?>
@@ -95,31 +110,6 @@ $scores = $stmt_scores->fetchAll();
 
             <a href="/create" class="btn btn-highlight">Créer un Événement</a>
 
-            <!-- Tous les événements validés -->
-            <h2>Tous les Événements <span class="highlight">Validés</span></h2>
-            <div class="event-list">
-                <?php if ($events_all): ?>
-                    <?php foreach ($events_all as $event): ?>
-                        <div class="event-card">
-                            <h3 class="event-title"><?= htmlspecialchars($event['title']); ?></h3>
-                            <p class="event-description"><?= htmlspecialchars($event['description']); ?></p>
-                            <div class="event-meta">
-                                <p><strong>Organisé par :</strong> <?= htmlspecialchars($event['created_by']); ?></p>
-                                <p><i class="fa-solid fa-user-group"></i> <?= htmlspecialchars($event['player_count']); ?></p>
-                                <p><i class="fa-regular fa-calendar"></i> Le <?= date('d/m/Y', strtotime($event['start_time'])); ?> de <?= date('H:i', strtotime($event['start_time'])); ?> à <?= date('H:i', strtotime($event['end_date'])); ?></p>
-                            </div>
-                            <div class="event-actions">
-                                <a href="join_event.php?event_id=<?= $event['id'] ?>" class="button">Rejoindre</a>
-                                <a href="chat_event.php?event_id=<?= $event['id'] ?>" class="button">Chat</a>
-                                <a href="dashboard.php?add_favorite=<?= $event['id']; ?>" class="button">Favoris</a>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <p class="no-event">Aucun événement validé.</p>
-                <?php endif; ?>
-            </div>
-
             <!-- Favoris -->
             <h2>Événements <span class="highlight">Favoris</span></h2>
             <div class="event-list">
@@ -131,6 +121,10 @@ $scores = $stmt_scores->fetchAll();
                             <div class="event-meta">
                                 <p><i class="fa-solid fa-user-group"></i> <?= htmlspecialchars($event['player_count']); ?></p>
                                 <p><i class="fa-regular fa-calendar"></i> Le <?= date('d/m/Y', strtotime($event['start_time'])); ?> de <?= date('H:i', strtotime($event['start_time'])); ?> à <?= date('H:i', strtotime($event['end_date'])); ?></p>
+                            </div>
+                            <div class="event-actions">
+                                <a href="/pages/event/join_event.php?event_id=<?= $event['id'] ?>" class="btn btn-highlight">Rejoindre</a>
+                                <a href="chat_event.php?event_id=<?= $event['id'] ?>" class="button">Chat</a>
                             </div>
                         </div>
                     <?php endforeach; ?>

@@ -53,25 +53,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <form action="/pages/event/create_event.php" method="POST" class="form">
         <div class="input-container">
             <input type="text" name="title" id="title" required>
-            <label class="label" for="title">Titre de l'événement:</label>
+            <label class="label" for="title">Titre</label>
         </div>
 
         <div class="input-container">
             <textarea name="description" id="description" required></textarea>
-            <label class="label" for="description">Description:</label>
+            <label class="label" for="description">Description</label>
         </div>
 
         <div class="input-container">
-            <input type="number" name="player_count" id="player_count" required>
-            <label class="label" for="player_count">Nombre de joueurs:</label>         
+            <input type="number" name="player_count" id="player_count" min="1" required>
+            <label class="label" for="player_count">Nombre de joueurs</label>         
         </div>
 
         <div class="input-container">
-            <input type="datetime-local" name="start_time" id="start_time" required>
+            <input type="datetime-local" id="start_time" name="start_time" required>
+            <label for="start_time" class="label">Date de début</label>
         </div>
 
         <div class="input-container">
             <input type="datetime-local" name="end_date" id="end_date" required>
+            <label class="label" for="end_time">Date de fin</label>
         </div>
         <div class="other-container">
             <button type="submit" class="btn btn-highlight">Créer l'événement</button>

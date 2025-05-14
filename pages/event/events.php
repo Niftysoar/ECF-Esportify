@@ -9,6 +9,13 @@ $filter_player_count = isset($_GET['player_count']) ? $_GET['player_count'] : ''
 $filter_date = isset($_GET['date']) ? $_GET['date'] : '';
 $filter_username = isset($_GET['username']) ? $_GET['username'] : '';
 
+// Affichage d'une erreur s’il y en a en session
+$error = null;
+if (isset($_SESSION['error_message'])) {
+    $error = $_SESSION['error_message'];
+    unset($_SESSION['error_message']);
+}
+
 try {
     // Construction de la requête avec filtres
     $sql = "SELECT events.*, users.username
@@ -66,6 +73,14 @@ try {
 
         <h1 class="live-title">Événements E-sport <span class="highlight"><br>à venir</span></h1>
 
+        <!-- Pop-up d'erreur -->
+        <?php if ($error): ?>
+            <div class="popup-error" id="popupError">
+                <p><?= htmlspecialchars($error) ?></p>
+                <button class="btn btn-highlight" onclick="document.getElementById('popupError').style.display='none'">Fermer</button>
+            </div>
+        <?php endif; ?>
+
         <!-- Formulaire de filtre -->
         <form id="filter-form" class="filter-bar">
             <div class="filter-group">
@@ -109,6 +124,11 @@ try {
                             <p><strong>Organisé par :</strong> <?php echo htmlspecialchars($event['username']); ?></p>
                             <p><i class="fa-solid fa-user-group"></i> <?php echo htmlspecialchars($event['player_count']); ?></p>
                             <p><i class="fa-regular fa-calendar"></i> Le <?php echo date('d/m/Y', strtotime($event['start_time'])); ?> de <?php echo date('H:i', strtotime($event['start_time'])); ?> à <?php echo date('H:i', strtotime($event['end_date'])); ?></p>
+                        </div>
+                        <div class="event-actions">
+                            <a href="/pages/event/join_event.php?event_id=<?= $event['id'] ?>" class="btn btn-highlight">Rejoindre</a>
+                            <a href="chat_event.php?event_id=<?= $event['id'] ?>" class="button">Chat</a>
+                            <a href="/pages/auth/dashboard.php?add_favorite=<?= $event['id']; ?>" class="button">Favoris</a>
                         </div>
                     </div>
                 <?php endforeach; ?>
