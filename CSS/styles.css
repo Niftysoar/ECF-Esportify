@@ -761,7 +761,7 @@ header{
 }
 
 .input-container input {
-    height: 56px; /* OK pour les inputs */
+    height: 56px;
 }
 
 .input-container textarea {
@@ -1048,6 +1048,8 @@ p a:hover {
 }
 
 .event-actions a {
+    text-decoration: none;
+    color: white;
     margin-right: 10px;
 }
 
