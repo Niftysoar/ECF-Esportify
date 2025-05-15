@@ -81,12 +81,6 @@ $scores = $stmt_scores->fetchAll();
             </div>
         <?php endif; ?>
 
-        <div class="container">
-
-            <div class="dashboard-header">
-                <h2>Gestion des <span class="highlight">Événements</span></h2>
-                <a href="/admin" class="btn btn-highlight">Accès Admin</a>
-            </div>
 
             <!-- Mes événements -->
             <h2>Tous Mes <span class="highlight">Événements</span></h2>
@@ -155,5 +149,9 @@ $scores = $stmt_scores->fetchAll();
                     <p class="no-event">Aucun score enregistré.</p>
                 <?php endif; ?>
             </div>
-        </div>
+
+            <div class="dashboard-admin">
+                <h2>Gestion des <span class="highlight">Événements</span></h2>
+                <a href="/admin" class="btn btn-highlight">Accès Admin</a>
+            </div>
     </section>

@@ -536,6 +536,12 @@ header{
 }
 
 /* Guides */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
 .card-wrapper{
     max-width: 1100px;
     margin: 0 60px 35px;
@@ -698,7 +704,6 @@ header{
     font-size: 18px;
 }
   
-/* Hero Section */
 .about-page-hero {
     text-align: center;
     background: url('../images/banner.png') no-repeat center/cover;
@@ -715,11 +720,6 @@ header{
 
 .about-logo{
     width: 635px;
-}
-  
-.about-page-hero p {
-    color: #ff4e4e;
-    font-size: 1.5rem;
 }
   
 .about-page-content {
@@ -739,6 +739,43 @@ header{
     color: #ff4c4c;
     font-size: 50px;
 }
+
+@media screen and (max-width: 768px) {
+  .about-page {
+    padding: 20px 15px;
+  }
+
+  .about-page-hero {
+    padding: 20px 10px;
+    height: auto;
+  }
+
+  .about-page-hero h1 {
+    font-size: 2.2rem;
+  }
+
+  .about-logo {
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+  }
+
+  .box {
+    padding: 18px 15px;
+    margin: 15px auto;
+  }
+
+  .box h2 {
+    margin-bottom: 30px;
+    font-size: 2rem;
+  }
+
+  .box p {
+    margin: 10px;
+    line-height: 1.6;
+  }
+}
+
 
 /* Connexion + Inscription + Contact form */
 .connexion , .inscription, .contact{
@@ -970,8 +1007,9 @@ p a:hover {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
     gap: 60px;
-    padding: 0 30px;
+    padding: 0;
     margin: 40px;
+    text-align: left;
 }
 
 .event-card {
@@ -1007,6 +1045,23 @@ p a:hover {
     color: #fff;
 }
 
+@media screen and (max-width: 768px) {
+    .event-list {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        margin: 20px;
+    }
+
+    .event-title {
+        margin-bottom: 10px;
+    }
+
+    .event-description {
+        font-size: 0.95rem;
+        margin-bottom: 10px;
+    }
+}
+
 /* POPUP ERREUR */
 .popup-error {
     position: fixed;
@@ -1030,21 +1085,15 @@ p a:hover {
 
 /* DASHBOARD */
 .dashboard{
+    max-width: 1300px;
     margin: 5% auto;
+    padding: 40px 20px;
     text-align: center;
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 40px 20px;
-}
-
-.container .event-card {
-    text-align: left;
-}
 .dashboard h2 {
-    margin: 50px 0;
+    font-size: 40px;
+    margin: 75px 0;
 }
 
 .event-actions a {
@@ -1059,6 +1108,10 @@ p a:hover {
     justify-content: center;
     gap: 10px;
     flex-wrap: wrap;
+}
+
+.dashboard-admin {
+    margin-bottom: 100px;
 }
 
 /* ADMIN DASHBOARD */
@@ -1128,7 +1181,7 @@ tr:nth-child(even) {
     font-family: 'GT Walsheim Pro', sans-serif;
 }
 
-.container {
+.footer-container {
     width: 80%;
     margin: 0 auto;
 }

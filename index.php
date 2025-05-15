@@ -93,7 +93,7 @@ include('pages/config.php');
     </main>
 
     <footer class="footer">
-        <div class="container">
+        <div class="footer-container">
             <div class="footer-content">
                 <div class="footer-section">
                     <a href="/"><img src="images/logo.png" alt="Esportify Logo" class="logo"></a>
