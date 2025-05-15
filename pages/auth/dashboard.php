@@ -56,13 +56,16 @@ $favorites = $stmt_favorites->fetchAll();
 
 // Récupérer l'historique des scores de l'utilisateur
 $stmt_scores = $pdo->prepare("
-    SELECT s.score, e.title AS event_title, e.start_time, e.end_date 
+    SELECT s.score, s.created_at, 
+           e.title AS event_title, e.start_time, e.end_date, 
+           u.username
     FROM scores s
     JOIN events e ON s.event_id = e.id
-    WHERE s.user_id = ? AND e.end_date < NOW()
-    ORDER BY e.end_date DESC
+    JOIN users u ON s.user_id = u.id
+    WHERE s.user_id = ?
+    ORDER BY s.created_at DESC
 ");
-$stmt_scores->execute([$user_id]);
+$stmt_scores->execute([$_SESSION['user_id']]);
 $scores = $stmt_scores->fetchAll();
 
 ?>
@@ -81,7 +84,8 @@ $scores = $stmt_scores->fetchAll();
         <div class="container">
 
             <div class="dashboard-header">
-                <a href="/admin" class="btn btn-highlight">ADMIN</a>
+                <h2>Gestion des <span class="highlight">Événements</span></h2>
+                <a href="/admin" class="btn btn-highlight">Accès Admin</a>
             </div>
 
             <!-- Mes événements -->
@@ -98,8 +102,8 @@ $scores = $stmt_scores->fetchAll();
                                         <?= htmlspecialchars($event['status']); ?>
                                     </span>
                                 </p>
-                                <p><i class="fa-solid fa-user-group"></i> <?= htmlspecialchars($event['player_count']); ?></p>
-                                <p><i class="fa-regular fa-calendar"></i> Le <?= date('d/m/Y', strtotime($event['start_time'])); ?> de <?= date('H:i', strtotime($event['start_time'])); ?> à <?= date('H:i', strtotime($event['end_date'])); ?></p>
+                                <p><strong><i class="fa-solid fa-user-group"></i></strong> <?= htmlspecialchars($event['player_count']); ?></p>
+                                <p><strong><i class="fa-regular fa-calendar"></i></strong> Le <?= date('d/m/Y', strtotime($event['start_time'])); ?> de <?= date('H:i', strtotime($event['start_time'])); ?> à <?= date('H:i', strtotime($event['end_date'])); ?></p>
                             </div>
                         </div>
                     <?php endforeach; ?>
@@ -119,8 +123,8 @@ $scores = $stmt_scores->fetchAll();
                             <h3 class="event-title"><?= htmlspecialchars($event['title']); ?></h3>
                             <p class="event-description"><?= htmlspecialchars($event['description']); ?></p>
                             <div class="event-meta">
-                                <p><i class="fa-solid fa-user-group"></i> <?= htmlspecialchars($event['player_count']); ?></p>
-                                <p><i class="fa-regular fa-calendar"></i> Le <?= date('d/m/Y', strtotime($event['start_time'])); ?> de <?= date('H:i', strtotime($event['start_time'])); ?> à <?= date('H:i', strtotime($event['end_date'])); ?></p>
+                                <p><strong><i class="fa-solid fa-user-group"></i></strong> <?= htmlspecialchars($event['player_count']); ?></p>
+                                <p><strong><i class="fa-regular fa-calendar"></i></strong> Le <?= date('d/m/Y', strtotime($event['start_time'])); ?> de <?= date('H:i', strtotime($event['start_time'])); ?> à <?= date('H:i', strtotime($event['end_date'])); ?></p>
                             </div>
                             <div class="event-actions">
                                 <a href="/pages/event/join_event.php?event_id=<?= $event['id'] ?>" class="btn btn-highlight">Rejoindre</a>
@@ -141,7 +145,7 @@ $scores = $stmt_scores->fetchAll();
                         <div class="event-card">
                             <h3 class="event-title"><?= htmlspecialchars($score['event_title']); ?></h3>
                             <div class="event-meta">
-                                <p><strong>Date :</strong> <?= date('d/m/Y H:i', strtotime($score['start_time'])); ?> - <?= date('H:i', strtotime($score['end_date'])); ?></p>
+                                <p><strong><i class="fa-regular fa-calendar"></i></strong> <?= date('d/m/Y H:i', strtotime($score['start_time'])); ?> - <?= date('H:i', strtotime($score['end_date'])); ?></p>
                                 <p><strong>Score :</strong> <?= htmlspecialchars($score['score']); ?></p>
                                 <p><strong>Joueur :</strong> <?= htmlspecialchars($score['username']); ?></p>
                             </div>

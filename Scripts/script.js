@@ -59,9 +59,9 @@ function isConnected(){
 
 /*
 disconnected
-connected (admin ou client)
+connected (admin ou joueur)
     - admin
-    - client
+    - joueur
 */
 function showAndHideElementsForRoles(){
     const userConnected = isConnected();
@@ -86,8 +86,13 @@ function showAndHideElementsForRoles(){
                     element.classList.add("d-none");
                 }
                 break;
-            case 'client': 
-                if(!userConnected || role != "client"){
+            case 'organisateur': 
+                if(!userConnected || role != "organisateur"){
+                    element.classList.add("d-none");
+                }
+                break;
+            case 'joueur': 
+                if(!userConnected || role != "joueur"){
                     element.classList.add("d-none");
                 }
                 break;

@@ -12,6 +12,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Active mod_rewrite pour les URL
 RUN a2enmod rewrite
 
+RUN sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
+
 # Copie tous les fichiers du projet dans le dossier Apache
 COPY . /var/www/html/
 
