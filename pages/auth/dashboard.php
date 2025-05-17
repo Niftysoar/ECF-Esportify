@@ -23,12 +23,7 @@ $user_id = $_SESSION['user_id'];
 // Récupérer les événements créés par l'utilisateur et validés
 $stmt_events_user = $pdo->prepare("SELECT * FROM events WHERE created_by = ? AND status = 'valide' ORDER BY start_time DESC");
 $stmt_events_user->execute([$user_id]);
-$events_user = $stmt_events_user->fetchAll();
-
-// Récupérer tous les événements validés (visibles pour tous)
-$stmt_events_all = $pdo->prepare("SELECT * FROM events WHERE status = 'valide' ORDER BY start_time DESC");
-$stmt_events_all->execute();
-$events_all = $stmt_events_all->fetchAll();
+$events_user = $stmt_events_user->fetchAll(PDO::FETCH_ASSOC);
 
 // Ajouter un événement aux favoris
 if (isset($_GET['add_favorite'])) {
@@ -52,7 +47,7 @@ $stmt_favorites = $pdo->prepare("SELECT events.*
                                 WHERE favorites.user_id = ? 
                                 ORDER BY events.start_time DESC");
 $stmt_favorites->execute([$user_id]);
-$favorites = $stmt_favorites->fetchAll();
+$favorites = $stmt_favorites->fetchAll(PDO::FETCH_ASSOC);
 
 // Récupérer l'historique des scores de l'utilisateur
 $stmt_scores = $pdo->prepare("
@@ -66,7 +61,7 @@ $stmt_scores = $pdo->prepare("
     ORDER BY s.created_at DESC
 ");
 $stmt_scores->execute([$_SESSION['user_id']]);
-$scores = $stmt_scores->fetchAll();
+$scores = $stmt_scores->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 

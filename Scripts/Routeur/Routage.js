@@ -1,6 +1,8 @@
 import Route from "./Route.js";
 import { allRoutes, websiteName } from "./allRoutes.js";
 
+console.log("Routeur.js chargé");
+
 // Création d'une route pour la page 404 (page introuvable)
 const route404 = new Route("404", "404 - Page introuvable", "/pages/404.html", []);
 
@@ -24,6 +26,7 @@ const getRouteByUrl = (url) => {
 
 // Fonction pour charger le contenu de la page
 const LoadContentPage = async () => {
+  console.log("Execute order 66");
   const path = window.location.pathname;
 
   // Récupération de l'URL actuelle
@@ -85,3 +88,5 @@ window.route = routeEvent;
 
 // Chargement du contenu de la page au chargement initial
 LoadContentPage();
+
+window.LoadContentPage = LoadContentPage;
