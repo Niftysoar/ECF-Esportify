@@ -20,12 +20,16 @@
 // }
 
 try {
-    $dsn = "pgsql:host=" . getenv("DB_HOST") . 
-           ";port=" . getenv("DB_PORT") . 
-           ";dbname=" . getenv("DB_NAME");
+    $host = getenv("DB_HOST");
+    $port = getenv("DB_PORT");
+    $dbname = getenv("DB_NAME");
+    $user = getenv("DB_USER");
+    $pass = getenv("DB_PASS");
 
-    $pdo = new PDO($dsn, getenv("DB_USER"), getenv("DB_PASS"));
+    // ✅ Chaîne DSN PostgreSQL bien formée
+    $dsn = "pgsql:host=$host;port=$port;dbname=$dbname";
 
+    $pdo = new PDO($dsn, $user, $pass);
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
