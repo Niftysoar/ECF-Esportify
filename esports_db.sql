@@ -18,33 +18,33 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `esports_db`
+-- Base de données : esports_db
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `events`
+-- Structure de la table events
 --
 
-CREATE TABLE `events` (
-  `id` int(11) NOT NULL,
-  `title` varchar(100) NOT NULL,
-  `description` text DEFAULT NULL,
-  `start_time` datetime NOT NULL,
-  `created_by` int(11) NOT NULL,
-  `status` enum('en_attente','valide','non_valide') DEFAULT 'en_attente',
-  `is_suspended` tinyint(1) DEFAULT 0,
-  `can_start_from` datetime DEFAULT NULL,
-  `player_count` int(11) DEFAULT 0,
-  `end_date` datetime DEFAULT NULL
+CREATE TABLE events (
+  id int(11) NOT NULL,
+  title varchar(100) NOT NULL,
+  description text DEFAULT NULL,
+  start_time datetime NOT NULL,
+  created_by int(11) NOT NULL,
+  status enum('en_attente','valide','non_valide') DEFAULT 'en_attente',
+  is_suspended tinyint(1) DEFAULT 0,
+  can_start_from datetime DEFAULT NULL,
+  player_count int(11) DEFAULT 0,
+  end_date datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Déchargement des données de la table `events`
+-- Déchargement des données de la table events
 --
 
-INSERT INTO `events` (`id`, `title`, `description`, `start_time`, `created_by`, `status`, `is_suspended`, `can_start_from`, `player_count`, `end_date`) VALUES
+INSERT INTO events (id, title, description, start_time, created_by, status, is_suspended, can_start_from, player_count, end_date) VALUES
 (1, 'Tournoi Rocket League', 'Tournoi 2v2 sur Rocket League', '2025-04-20 20:00:00', 2, 'valide', 0, '2025-04-20 19:30:00', 4, '2025-04-20 22:00:00'),
 (2, 'Match FIFA', 'Petit match détente sur FIFA 23', '2025-04-25 18:00:00', 2, 'valide', 0, '2025-04-25 17:30:00', 2, '2025-04-25 19:00:00'),
 (3, 'Battle Royale Fortnite', 'Tournoi solo sur Fortnite.', '2025-05-01 21:00:00', 2, 'valide', 0, '2025-05-01 20:30:00', 6, '2025-05-01 23:00:00'),
@@ -60,19 +60,19 @@ INSERT INTO `events` (`id`, `title`, `description`, `start_time`, `created_by`, 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `favorites`
+-- Structure de la table favorites
 --
 
-CREATE TABLE `favorites` (
-  `user_id` int(11) NOT NULL,
-  `event_id` int(11) NOT NULL
+CREATE TABLE favorites (
+  user_id int(11) NOT NULL,
+  event_id int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Déchargement des données de la table `favorites`
+-- Déchargement des données de la table favorites
 --
 
-INSERT INTO `favorites` (`user_id`, `event_id`) VALUES
+INSERT INTO favorites (user_id, event_id) VALUES
 (4, 1),
 (4, 15),
 (4, 17);
@@ -80,21 +80,21 @@ INSERT INTO `favorites` (`user_id`, `event_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `participations`
+-- Structure de la table participations
 --
 
-CREATE TABLE `participations` (
-  `user_id` int(11) NOT NULL,
-  `event_id` int(11) NOT NULL,
-  `status` enum('accepte','refuse','en_attente') DEFAULT 'en_attente',
-  `joined` tinyint(1) DEFAULT 0
+CREATE TABLE participations (
+  user_id int(11) NOT NULL,
+  event_id int(11) NOT NULL,
+  status enum('accepte','refuse','en_attente') DEFAULT 'en_attente',
+  joined tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Déchargement des données de la table `participations`
+-- Déchargement des données de la table participations
 --
 
-INSERT INTO `participations` (`user_id`, `event_id`, `status`, `joined`) VALUES
+INSERT INTO participations (user_id, event_id, status, joined) VALUES
 (4, 1, 'en_attente', 0),
 (4, 15, 'en_attente', 0),
 (4, 17, 'en_attente', 0);
@@ -102,44 +102,44 @@ INSERT INTO `participations` (`user_id`, `event_id`, `status`, `joined`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `scores`
+-- Structure de la table scores
 --
 
-CREATE TABLE `scores` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `event_id` int(11) DEFAULT NULL,
-  `score` int(11) DEFAULT NULL,
-  `created_at` datetime DEFAULT current_timestamp()
+CREATE TABLE scores (
+  id int(11) NOT NULL,
+  user_id int(11) DEFAULT NULL,
+  event_id int(11) DEFAULT NULL,
+  score int(11) DEFAULT NULL,
+  created_at datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Déchargement des données de la table `scores`
+-- Déchargement des données de la table scores
 --
 
-INSERT INTO `scores` (`id`, `user_id`, `event_id`, `score`, `created_at`) VALUES
+INSERT INTO scores (id, user_id, event_id, score, created_at) VALUES
 (1, 4, 1, 87, '2025-05-15 18:03:11');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `users`
+-- Structure de la table users
 --
 
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
-  `username` varchar(50) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `role` enum('joueur','organisateur','admin') NOT NULL DEFAULT 'joueur',
-  `created_at` datetime DEFAULT current_timestamp()
+CREATE TABLE users (
+  id int(11) NOT NULL,
+  username varchar(50) NOT NULL,
+  email varchar(100) NOT NULL,
+  password varchar(255) NOT NULL,
+  role enum('joueur','organisateur','admin') NOT NULL DEFAULT 'joueur',
+  created_at datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Déchargement des données de la table `users`
+-- Déchargement des données de la table users
 --
 
-INSERT INTO `users` (`id`, `username`, `email`, `password`, `role`, `created_at`) VALUES
+INSERT INTO users (id, username, email, password, role, created_at) VALUES
 (1, 'admin', 'admin@example.com', '$2y$10$oGNPCyTwR7mLiKbl.NfB1.s6nilcLQUT5bpVTIRlm5/7fr22jFjj2', 'admin', '2024-11-06 11:57:15'),
 (2, 'orga1', 'orga1@example.com', '$2y$10$abcabcabcabcabcabcabcabcabcabcabcabcabcabca', 'organisateur', '2024-11-07 09:25:00'),
 (3, 'joueur1', 'joueur1@example.com', '$2y$10$xyzxyzxyzxyzxyzxyzxyzxyzxyzxyzxyzxyzxyzxy', 'joueur', '2024-11-07 10:00:00'),
@@ -150,94 +150,94 @@ INSERT INTO `users` (`id`, `username`, `email`, `password`, `role`, `created_at`
 --
 
 --
--- Index pour la table `events`
+-- Index pour la table events
 --
-ALTER TABLE `events`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `created_by` (`created_by`);
+ALTER TABLE events
+  ADD PRIMARY KEY (id),
+  ADD KEY created_by (created_by);
 
 --
--- Index pour la table `favorites`
+-- Index pour la table favorites
 --
-ALTER TABLE `favorites`
-  ADD PRIMARY KEY (`user_id`,`event_id`),
-  ADD KEY `event_id` (`event_id`);
+ALTER TABLE favorites
+  ADD PRIMARY KEY (user_id,event_id),
+  ADD KEY event_id (event_id);
 
 --
--- Index pour la table `participations`
+-- Index pour la table participations
 --
-ALTER TABLE `participations`
-  ADD PRIMARY KEY (`user_id`,`event_id`),
-  ADD KEY `event_id` (`event_id`);
+ALTER TABLE participations
+  ADD PRIMARY KEY (user_id,event_id),
+  ADD KEY event_id (event_id);
 
 --
--- Index pour la table `scores`
+-- Index pour la table scores
 --
-ALTER TABLE `scores`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`),
-  ADD KEY `event_id` (`event_id`);
+ALTER TABLE scores
+  ADD PRIMARY KEY (id),
+  ADD KEY user_id (user_id),
+  ADD KEY event_id (event_id);
 
 --
--- Index pour la table `users`
+-- Index pour la table users
 --
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `username` (`username`),
-  ADD UNIQUE KEY `email` (`email`);
+ALTER TABLE users
+  ADD PRIMARY KEY (id),
+  ADD UNIQUE KEY username (username),
+  ADD UNIQUE KEY email (email);
 
 --
 -- AUTO_INCREMENT pour les tables déchargées
 --
 
 --
--- AUTO_INCREMENT pour la table `events`
+-- AUTO_INCREMENT pour la table events
 --
-ALTER TABLE `events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+ALTER TABLE events
+  MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
--- AUTO_INCREMENT pour la table `scores`
+-- AUTO_INCREMENT pour la table scores
 --
-ALTER TABLE `scores`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE scores
+  MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT pour la table `users`
+-- AUTO_INCREMENT pour la table users
 --
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+ALTER TABLE users
+  MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Contraintes pour les tables déchargées
 --
 
 --
--- Contraintes pour la table `events`
+-- Contraintes pour la table events
 --
-ALTER TABLE `events`
-  ADD CONSTRAINT `events_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+ALTER TABLE events
+  ADD CONSTRAINT events_ibfk_1 FOREIGN KEY (created_by) REFERENCES users (id) ON DELETE CASCADE;
 
 --
--- Contraintes pour la table `favorites`
+-- Contraintes pour la table favorites
 --
-ALTER TABLE `favorites`
-  ADD CONSTRAINT `favorites_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `favorites_ibfk_2` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE;
+ALTER TABLE favorites
+  ADD CONSTRAINT favorites_ibfk_1 FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
+  ADD CONSTRAINT favorites_ibfk_2 FOREIGN KEY (event_id) REFERENCES events (id) ON DELETE CASCADE;
 
 --
--- Contraintes pour la table `participations`
+-- Contraintes pour la table participations
 --
-ALTER TABLE `participations`
-  ADD CONSTRAINT `participations_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `participations_ibfk_2` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE;
+ALTER TABLE participations
+  ADD CONSTRAINT participations_ibfk_1 FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
+  ADD CONSTRAINT participations_ibfk_2 FOREIGN KEY (event_id) REFERENCES events (id) ON DELETE CASCADE;
 
 --
--- Contraintes pour la table `scores`
+-- Contraintes pour la table scores
 --
-ALTER TABLE `scores`
-  ADD CONSTRAINT `scores_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `scores_ibfk_2` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE;
+ALTER TABLE scores
+  ADD CONSTRAINT scores_ibfk_1 FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
+  ADD CONSTRAINT scores_ibfk_2 FOREIGN KEY (event_id) REFERENCES events (id) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
