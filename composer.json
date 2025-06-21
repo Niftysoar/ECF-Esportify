@@ -1,7 +1,0 @@
-{
-    "name": "ton/esportify",
-    "description": "site esportify",
-    "require": {
-        "monolog/monolog": "^3.8"
-    }
-}

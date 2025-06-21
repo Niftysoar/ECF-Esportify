@@ -8,13 +8,29 @@ include('pages/config.php');
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <!-- Caractères et affichage mobile -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Esportify</title>
+
+    <!-- Description SEO -->
+    <meta name="description" content="Participez à des tournois e-sport compétitifs sur Esportify. Rejoignez plus de 200 000 joueurs passionnés de jeux vidéo !">
+
+    <!-- Mots-clés SEO -->
+    <meta name="keywords" content="e-sport, esport, tournoi, compétition, gaming, jeux vidéo, Rocket League, FIFA, Nintendo, PC, joueur, événement, tournoi en ligne">
+
+    <!-- Auteur -->
+    <meta name="author" content="Équipe Esportify">
+
+    <!-- Favicon -->
+    <link rel="icon" href="assets/images/favicon.ico">
+
+    <!-- Icônes et polices -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=arrow_forward" />
-    <title>Document</title>
-    <link rel="icon" href="images/favicon.ico">
-    <!-- Import de Swiper JS -->
+
+    <!-- Feuilles de style -->
     <link rel="stylesheet" href="CSS/swiper-bundle.min.css">
     <link rel="stylesheet" href="CSS/styles.css">
 </head>
@@ -22,7 +38,7 @@ include('pages/config.php');
     <!-- Barre de navigation -->
     <header>
         <nav class="navbar">
-            <a href="/"><img src="images/logo.png" alt="Esportify Logo" class="logo"></a>
+            <a href="/"><img src="assets/images/logo.png" alt="Esportify Logo" class="logo"></a>
             
             <ul class="nav-links">
                 <li><a href="/lives">Lives</a></li>
@@ -97,7 +113,7 @@ include('pages/config.php');
         <div class="footer-container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <a href="/"><img src="images/logo.png" alt="Esportify Logo" class="logo"></a>
+                    <a href="/"><img src="assets/images/logo.png" alt="Esportify Logo" class="logo"></a>
                     <p class="slogan">Esportez vous bien !</p>
                 </div>
                 <div class="footer-section">
