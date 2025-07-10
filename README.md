@@ -32,30 +32,11 @@ cd ECF-Esportify
 - `Dockerfile`
 - `docker-compose.yml`
 - `config.php` (voir ci-dessous)
-- Un dossier `docker/sql/` contenant `esportify_db.sql` pour la base
+- `esportify_db.sql` pour la base de données
 
 ---
 
-### 3. Exemple de `config.php`
-
-```php
-<?php
-$host = 'mysql';
-$dbname = 'esportify_db';
-$username = 'root';
-$password = 'root';
-
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
-} catch (PDOException $e) {
-    die("Erreur de connexion : " . $e->getMessage());
-}
-?>
-```
-
----
-
-### 4. Lancer le projet
+### 3. Lancer le projet
 
 ```bash
 docker-compose up --build
@@ -102,9 +83,5 @@ Cela crée :
 
 ## 🧾 Notes
 
-- Pour importer la BDD manuellement, utilisez phpMyAdmin et chargez `docker/sql/esportify_db.sql`.
+- Pour importer la BDD manuellement, utilisez phpMyAdmin et chargez `esportify_db.sql`.
 - Les images et scripts sont servis via Apache dans `/public` ou selon ton arborescence.
-
----
-
-📬 Pour toute question ou bug, contactez l’auteur du dépôt ou ouvrez une *issue* sur GitHub.
