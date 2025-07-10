@@ -1,45 +1,110 @@
-# Esportify - Déploiement Local
+# 🎮 Esportify — Déploiement Local avec Docker
 
-Ce projet permet de créer un site web pour la gestion d'événements e-sport avec des fonctionnalités de connexion, de gestion de comptes utilisateurs et d'administration. Ce guide vous montre comment déployer ce projet en local.
+**Esportify** est une plateforme web pour la gestion d’événements e-sport, incluant la participation, la création d’événements, l'administration et le suivi des scores.
 
-## Prérequis
+---
 
-Avant de déployer le projet en local, vous devez avoir les éléments suivants installés :
+## ⚙️ Prérequis
 
-* **XAMPP** ou **MAMP** : Pour gérer Apache et MySQL en local.
-* **PHP** : Le langage de script côté serveur.
-* **MySQL** : Le système de gestion de base de données.
-* **Composer** (si nécessaire) : Pour la gestion des dépendances PHP.
-* Un **éditeur de code** : Comme VS Code ou PHPStorm.
+Assurez-vous d'avoir installé :
 
-## Étapes de Déploiement
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+- [Git](https://git-scm.com/)
+- Un éditeur de code (recommandé : VS Code)
 
-1.  **Cloner le repository**
+---
 
-    Si vous n'avez pas encore cloné le projet, utilisez la commande suivante dans votre terminal :
+## 🚀 Installation & Lancement
 
-    ```bash
-    git clone https://github.com/Niftysoar/ECF-Esportify.git
-    
-    ```
+### 1. Cloner le dépôt
 
-2.  **Placer les fichiers dans le dossier `htdocs`**
+```bash
+git clone https://github.com/Niftysoar/ECF-Esportify.git
+cd ECF-Esportify
+```
 
-    Dans votre dossier d'installation XAMPP (par défaut `C:\xampp\htdocs` sous Windows ou `/Applications/XAMPP/htdocs/` sous macOS), créez un nouveau dossier pour votre projet (par exemple, `esport_website`). Ensuite, copiez tous les fichiers du projet cloné à l'intérieur de ce nouveau dossier.
+---
 
-3.  **Configurer la base de données**
+### 2. Structure attendue
 
-    * Ouvrez phpMyAdmin en accédant à `http://localhost/phpmyadmin/` dans votre navigateur web.
-    * Créez une nouvelle base de données. Choisissez le nom que vous souhaitez utiliser (par exemple, `esport_db`).
-    * Si vous disposez d'un fichier `.sql` pour initialiser la base de données, sélectionnez la base de données que vous venez de créer dans phpMyAdmin et utilisez l'onglet "Importer" pour charger le fichier.
+À la racine du projet, vous devez avoir :
 
-4.  **Configurer le fichier `config.php`**
+- `Dockerfile`
+- `docker-compose.yml`
+- `config.php` (voir ci-dessous)
+- Un dossier `docker/sql/` contenant `esportify_db.sql` pour la base
 
-    Localisez le fichier `config.php` dans les fichiers de votre projet. Ouvrez ce fichier avec votre éditeur de code et renseignez les informations de connexion à votre base de données MySQL. Assurez-vous que le nom d'hôte, le nom d'utilisateur, le mot de passe et le nom de la base de données correspondent à votre configuration locale.
+---
 
-    * **Note pour MAMP users :** Le nom d'utilisateur par défaut est souvent `root` et le mot de passe est également `root`.
+### 3. Exemple de `config.php`
 
-5.  **Démarrer les services**
+```php
+<?php
+$host = 'mysql';
+$dbname = 'esportify_db';
+$username = 'root';
+$password = 'root';
 
-    * Ouvrez l'interface de contrôle de XAMPP ou MAMP.
-    * Démarrez les services **Apache** et **MySQL**.
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
+} catch (PDOException $e) {
+    die("Erreur de connexion : " . $e->getMessage());
+}
+?>
+```
+
+---
+
+### 4. Lancer le projet
+
+```bash
+docker-compose up --build
+```
+
+Cela crée :
+
+- Un conteneur **Apache + PHP**
+- Un conteneur **MySQL** avec les tables de la BDD
+- Un conteneur **phpMyAdmin** (optionnel)
+
+---
+
+## 🌐 Accès aux services
+
+| Service        | URL                          |
+|----------------|-------------------------------|
+| Site Web       | http://localhost:8000         |
+| phpMyAdmin     | http://localhost:8080         |
+| Utilisateur    | `root`                        |
+| Mot de passe   | `root`                        |
+| Host MySQL     | `mysql` (nom du service Docker) |
+
+---
+
+## 🧪 Tester l'application
+
+1. S'inscrire via `/signup`
+2. Se connecter via `/signin`
+3. Créer ou rejoindre un événement via `/dashboard`
+4. En tant qu’admin, valider les événements via `/admin`
+
+---
+
+## 🛠️ Commandes utiles
+
+| Action                    | Commande                                 |
+|---------------------------|------------------------------------------|
+| Lancer les conteneurs     | `docker-compose up --build`              |
+| Stopper les conteneurs    | `docker-compose down`                    |
+| Rebuild + forcer recréation | `docker-compose up --build --force-recreate` |
+
+---
+
+## 🧾 Notes
+
+- Pour importer la BDD manuellement, utilisez phpMyAdmin et chargez `docker/sql/esportify_db.sql`.
+- Les images et scripts sont servis via Apache dans `/public` ou selon ton arborescence.
+
+---
+
+📬 Pour toute question ou bug, contactez l’auteur du dépôt ou ouvrez une *issue* sur GitHub.
