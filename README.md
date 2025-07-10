@@ -32,7 +32,7 @@ cd ECF-Esportify
 - `Dockerfile`
 - `docker-compose.yml`
 - `config.php` (voir ci-dessous)
-- `esportify_db.sql` pour la base de données
+- `esports_db.sql` pour la base de données
 
 ---
 
@@ -83,5 +83,5 @@ Cela crée :
 
 ## 🧾 Notes
 
-- Pour importer la BDD manuellement, utilisez phpMyAdmin et chargez `esportify_db.sql`.
+- Pour importer la BDD manuellement, utilisez phpMyAdmin et chargez `esports_db.sql`.
 - Les images et scripts sont servis via Apache dans `/public` ou selon ton arborescence.
