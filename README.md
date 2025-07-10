@@ -76,10 +76,3 @@ Cela crée :
 | Lancer les conteneurs     | `docker-compose up --build`              |
 | Stopper les conteneurs    | `docker-compose down`                    |
 | Rebuild + forcer recréation | `docker-compose up --build --force-recreate` |
-
----
-
-## 🧾 Notes
-
-- Pour importer la BDD manuellement, utilisez phpMyAdmin et chargez `esports_db.sql`.
-- Les images et scripts sont servis via Apache dans `/public` ou selon ton arborescence.
