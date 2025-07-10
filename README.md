@@ -44,9 +44,9 @@ docker-compose up --build
 
 Cela crée :
 
-- Un conteneur **Apache + PHP**
-- Un conteneur **MySQL** avec les tables de la BDD
-- Un conteneur **phpMyAdmin** (optionnel)
+- Un conteneur **Apache + PHP**.
+- Un conteneur **MySQL** avec les tables de la BDD.
+- Prépare un conteneur PostgreSQL (postgres) pour une base NoSQL ou des extensions futures.
 
 ---
 
@@ -55,10 +55,8 @@ Cela crée :
 | Service        | URL                          |
 |----------------|-------------------------------|
 | Site Web       | http://localhost:8000         |
-| phpMyAdmin     | http://localhost:8080         |
-| Utilisateur    | `root`                        |
-| Mot de passe   | `root`                        |
-| Host MySQL     | `mysql` (nom du service Docker) |
+| Serveur PHP    | Port 8000 (redirigé vers Apache sur le conteneur)                        |
+| Base de données   | MariaDB (MySQL compatible) sur localhost:3307                        |
 
 ---
 
