@@ -8,6 +8,12 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
+// Vérifier si l'utilisateur est connecté et a les droits organisateur
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'organisateur' && $_SESSION['role'] !== 'admin') {
+    header('Location: /'); // Rediriger vers la page de connexion si l'utilisateur n'est pas un organisateur
+    exit;
+}
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (
         isset($_POST['title'], $_POST['description'], $_POST['player_count'], $_POST['start_time'], $_POST['end_date'])
