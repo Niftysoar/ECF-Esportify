@@ -8,9 +8,9 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-// Vérifier si l'utilisateur est connecté et a les droits organisateur
+// Vérifier si l'utilisateur est connecté et a les droits organisateur ou admin
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'organisateur' && $_SESSION['role'] !== 'admin') {
-    header('Location: /'); // Rediriger vers la page de connexion si l'utilisateur n'est pas un organisateur
+    header('Location: /'); // Rediriger vers la page de connexion si l'utilisateur n'est pas un organisateur ou admin
     exit;
 }
 
