@@ -48,14 +48,14 @@ INSERT INTO events (id, title, description, start_time, created_by, status, is_s
 (1, 'Tournoi Rocket League', 'Tournoi 2v2 sur Rocket League', '2025-04-20 20:00:00', 2, 'valide', FALSE, '2025-04-20 19:30:00', 4, '2025-04-20 22:00:00'),
 (2, 'Match FIFA', 'Petit match détente sur FIFA 23', '2025-04-25 18:00:00', 2, 'valide', FALSE, '2025-04-25 17:30:00', 2, '2025-04-25 19:00:00'),
 (3, 'Battle Royale Fortnite', 'Tournoi solo sur Fortnite.', '2025-05-01 21:00:00', 2, 'valide', FALSE, '2025-05-01 20:30:00', 6, '2025-05-01 23:00:00'),
-(10, 'Tournoi Fortnite Solo', 'Tournoi solo ouvert à tous les joueurs européens.', '2025-06-01 18:00:00', 2, 'en_attente', FALSE, '2025-06-01 17:30:00', 100, '2025-06-01 20:00:00'),
-(11, 'Ligue Valorant - Phase 1', 'Compétition en 5v5, première phase éliminatoire.', '2025-06-03 16:00:00', 2, 'en_attente', FALSE, '2025-06-03 15:30:00', 10, '2025-06-03 19:00:00'),
-(12, 'Match d''exhibition FIFA 25', 'Amical entre streamers FIFA.', '2025-06-05 21:00:00', 2, 'en_attente', FALSE, '2025-06-05 20:30:00', 2, '2025-06-05 22:00:00'),
-(13, 'Tournoi Valorant', 'Tournoi compétitif en 5v5 sur Valorant, tous niveaux acceptés.', '2025-05-12 19:00:00', 2, 'en_attente', FALSE, '2025-05-12 18:30:00', 10, '2025-05-12 21:00:00'),
-(14, 'LAN Mario Kart', 'Session fun sur Mario Kart 8 Deluxe. Venez avec votre bonne humeur !', '2025-05-15 17:30:00', 2, 'en_attente', FALSE, '2025-05-15 17:00:00', 8, '2025-05-15 19:00:00'),
-(15, 'Tournoi Super Smash Bros. Ultimate', 'Affrontez d’autres joueurs dans un tournoi à élimination directe sur Switch !', '2025-05-10 18:00:00', 2, 'valide', FALSE, '2025-05-10 17:30:00', 16, '2025-05-10 20:30:00'),
-(16, 'Session coop Zelda: Tears of the Kingdom', 'Explorez Hyrule à plusieurs dans une session de jeu libre et partages d’astuces.', '2025-05-11 14:00:00', 2, 'valide', FALSE, '2025-05-11 13:30:00', 4, '2025-05-11 16:00:00'),
-(17, 'Course Time Trial - Mario Kart 8 Deluxe', 'Défiez les meilleurs chronos sur les circuits rétro et modernes.', '2025-05-13 20:00:00', 2, 'valide', FALSE, '2025-05-13 19:30:00', 12, '2025-05-13 21:30:00');
+(4, 'Tournoi Fortnite Solo', 'Tournoi solo ouvert à tous les joueurs européens.', '2025-06-01 18:00:00', 2, 'en_attente', FALSE, '2025-06-01 17:30:00', 100, '2025-06-01 20:00:00'),
+(5, 'Ligue Valorant - Phase 1', 'Compétition en 5v5, première phase éliminatoire.', '2025-06-03 16:00:00', 2, 'en_attente', FALSE, '2025-06-03 15:30:00', 10, '2025-06-03 19:00:00'),
+(6, 'Match d''exhibition FIFA 25', 'Amical entre streamers FIFA.', '2025-06-05 21:00:00', 2, 'en_attente', FALSE, '2025-06-05 20:30:00', 2, '2025-06-05 22:00:00'),
+(7, 'Tournoi Valorant', 'Tournoi compétitif en 5v5 sur Valorant, tous niveaux acceptés.', '2025-05-12 19:00:00', 2, 'en_attente', FALSE, '2025-05-12 18:30:00', 10, '2025-05-12 21:00:00'),
+(8, 'LAN Mario Kart', 'Session fun sur Mario Kart 8 Deluxe. Venez avec votre bonne humeur !', '2025-05-15 17:30:00', 2, 'en_attente', FALSE, '2025-05-15 17:00:00', 8, '2025-05-15 19:00:00'),
+(9, 'Tournoi Super Smash Bros. Ultimate', 'Affrontez d’autres joueurs dans un tournoi à élimination directe sur Switch !', '2025-05-10 18:00:00', 2, 'valide', FALSE, '2025-05-10 17:30:00', 16, '2025-05-10 20:30:00'),
+(10, 'Session coop Zelda: Tears of the Kingdom', 'Explorez Hyrule à plusieurs dans une session de jeu libre et partages d’astuces.', '2025-05-11 14:00:00', 2, 'valide', FALSE, '2025-05-11 13:30:00', 4, '2025-05-11 16:00:00'),
+(11, 'Course Time Trial - Mario Kart 8 Deluxe', 'Défiez les meilleurs chronos sur les circuits rétro et modernes.', '2025-05-13 20:00:00', 2, 'valide', FALSE, '2025-05-13 19:30:00', 12, '2025-05-13 21:30:00');
 
 -- --------------------------------------------------------
 
@@ -74,8 +74,8 @@ CREATE TABLE favorites (
 
 INSERT INTO favorites (user_id, event_id) VALUES
 (1, 1),
-(2, 15),
-(3, 17);
+(2, 9),
+(3, 11);
 
 -- --------------------------------------------------------
 
@@ -96,8 +96,8 @@ CREATE TABLE participations (
 
 INSERT INTO participations (user_id, event_id, status, joined) VALUES
 (3, 1, 'en_attente', FALSE),
-(3, 15, 'en_attente', FALSE),
-(3, 17, 'en_attente', FALSE);
+(3, 9, 'en_attente', FALSE),
+(3, 11, 'en_attente', FALSE);
 
 -- --------------------------------------------------------
 

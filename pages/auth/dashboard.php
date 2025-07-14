@@ -38,6 +38,8 @@ if (isset($_GET['add_favorite'])) {
         // Ajouter l'événement aux favoris
         $stmt_add_favorite = $pdo->prepare("INSERT INTO favorites (user_id, event_id) VALUES (?, ?)");
         $stmt_add_favorite->execute([$user_id, $event_id]);
+        header("Location: /dashboard");
+        exit;
     }
 }
 
