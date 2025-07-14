@@ -53,9 +53,9 @@ INSERT INTO events (id, title, description, start_time, created_by, status, is_s
 (12, 'Match d''exhibition FIFA 25', 'Amical entre streamers FIFA.', '2025-06-05 21:00:00', 2, 'en_attente', FALSE, '2025-06-05 20:30:00', 2, '2025-06-05 22:00:00'),
 (13, 'Tournoi Valorant', 'Tournoi compétitif en 5v5 sur Valorant, tous niveaux acceptés.', '2025-05-12 19:00:00', 2, 'en_attente', FALSE, '2025-05-12 18:30:00', 10, '2025-05-12 21:00:00'),
 (14, 'LAN Mario Kart', 'Session fun sur Mario Kart 8 Deluxe. Venez avec votre bonne humeur !', '2025-05-15 17:30:00', 2, 'en_attente', FALSE, '2025-05-15 17:00:00', 8, '2025-05-15 19:00:00'),
-(15, 'Tournoi Super Smash Bros. Ultimate', 'Affrontez d’autres joueurs dans un tournoi à élimination directe sur Switch !', '2025-05-10 18:00:00', 4, 'valide', FALSE, '2025-05-10 17:30:00', 16, '2025-05-10 20:30:00'),
+(15, 'Tournoi Super Smash Bros. Ultimate', 'Affrontez d’autres joueurs dans un tournoi à élimination directe sur Switch !', '2025-05-10 18:00:00', 2, 'valide', FALSE, '2025-05-10 17:30:00', 16, '2025-05-10 20:30:00'),
 (16, 'Session coop Zelda: Tears of the Kingdom', 'Explorez Hyrule à plusieurs dans une session de jeu libre et partages d’astuces.', '2025-05-11 14:00:00', 2, 'valide', FALSE, '2025-05-11 13:30:00', 4, '2025-05-11 16:00:00'),
-(17, 'Course Time Trial - Mario Kart 8 Deluxe', 'Défiez les meilleurs chronos sur les circuits rétro et modernes.', '2025-05-13 20:00:00', 4, 'valide', FALSE, '2025-05-13 19:30:00', 12, '2025-05-13 21:30:00');
+(17, 'Course Time Trial - Mario Kart 8 Deluxe', 'Défiez les meilleurs chronos sur les circuits rétro et modernes.', '2025-05-13 20:00:00', 2, 'valide', FALSE, '2025-05-13 19:30:00', 12, '2025-05-13 21:30:00');
 
 -- --------------------------------------------------------
 
@@ -73,9 +73,9 @@ CREATE TABLE favorites (
 --
 
 INSERT INTO favorites (user_id, event_id) VALUES
-(4, 1),
-(4, 15),
-(4, 17);
+(1, 1),
+(2, 15),
+(3, 17);
 
 -- --------------------------------------------------------
 
@@ -95,9 +95,9 @@ CREATE TABLE participations (
 --
 
 INSERT INTO participations (user_id, event_id, status, joined) VALUES
-(4, 1, 'en_attente', FALSE),
-(4, 15, 'en_attente', FALSE),
-(4, 17, 'en_attente', FALSE);
+(3, 1, 'en_attente', FALSE),
+(3, 15, 'en_attente', FALSE),
+(3, 17, 'en_attente', FALSE);
 
 -- --------------------------------------------------------
 
@@ -118,7 +118,7 @@ CREATE TABLE scores (
 --
 
 INSERT INTO scores (id, user_id, event_id, score, created_at) VALUES
-(1, 4, 1, 87, '2025-05-15 18:03:11');
+(1, 3, 1, 87, '2025-05-15 18:03:11');
 
 -- --------------------------------------------------------
 
@@ -140,10 +140,9 @@ CREATE TABLE users (
 --
 
 INSERT INTO users (id, username, email, password, role, created_at) VALUES
-(1, 'admin', 'admin@example.com', '$2y$10$oGNPCyTwR7mLiKbl.NfB1.s6nilcLQUT5bpVTIRlm5/7fr22jFjj2', 'admin', '2024-11-06 11:57:15'),
-(2, 'orga1', 'orga1@example.com', '$2y$10$abcabcabcabcabcabcabcabcabcabcabcabcabcabca', 'organisateur', '2024-11-07 09:25:00'),
-(3, 'joueur1', 'joueur1@example.com', '$2y$10$xyzxyzxyzxyzxyzxyzxyzxyzxyzxyzxyzxyzxyzxy', 'joueur', '2024-11-07 10:00:00'),
-(4, 'Niftysprites', 'berthomath@hotmail.com', '$2y$10$kS/i3kDrbRcnybNWVIvece2oQIWLTVlUCyWLumXjLCck1Ffly7fqm', 'admin', '2025-05-05 11:54:41');
+(1, 'Nastfy', 'admin@example.com', '$2y$10$yLOpXqjVnB5v5g8cd32rqe5eJQhvurUMK1YzmClkw2qDV89aLzXFu', 'admin', '2024-11-06 11:57:15'),
+(2, 'Organisatueur', 'orga1@example.com', '$2y$10$5hdDNvDSwLgvOF7N2mYaZ.G1KZ.o3ihoM8MFVIgl37HKBjhOjcupW', 'organisateur', '2024-11-07 09:25:00'),
+(3, 'Joueur2Fou', 'joueur1@example.com', '$2y$10$zbUe6EB3GpvODEUeMSHGjO8Hja9GjqxKvZuAaPocusrr4yr4bmZLi', 'joueur', '2024-11-07 10:00:00');
 
 --
 -- Index pour les tables déchargées

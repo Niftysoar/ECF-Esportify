@@ -20,11 +20,11 @@
 // }
 
 try {
-    $host = getenv("DB_HOST");
+    $host = getenv("DB_HOST"); // Hôte de la base de données
     $port = getenv("DB_PORT");
-    $dbname = getenv("DB_NAME");
-    $user = getenv("DB_USER");
-    $pass = getenv("DB_PASS");
+    $dbname = getenv("DB_NAME"); // Nom de la base de données
+    $user = getenv("DB_USER"); // Utilisateur
+    $pass = getenv("DB_PASS"); // Mot de passe
 
     // ✅ Chaîne DSN PostgreSQL bien formée
     $dsn = "pgsql:host=$host;port=$port;dbname=$dbname";
@@ -39,12 +39,12 @@ try {
 
 // Décommenter
 try {
-    $pdo = new PDO(
-        "pgsql:host=" . getenv("DB_HOST") .
+    $pdo = new PDO( 
+        "pgsql:host=" . getenv("DB_HOST") . // Hôte de la base de données
         ";port=" . getenv("DB_PORT") .
-        ";dbname=" . getenv("DB_NAME"),
-        getenv("DB_USER"),
-        getenv("DB_PASS")
+        ";dbname=" . getenv("DB_NAME"), // Nom de la base de données
+        getenv("DB_USER"), // Utilisateur
+        getenv("DB_PASS") // Mot de passe
     );
 
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

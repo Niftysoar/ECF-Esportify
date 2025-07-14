@@ -1,9 +1,10 @@
 <?php
-// Inclure le fichier de configuration pour la connexion à la base de données
-include('../config.php');
 
 // Démarrer la session
 session_start();
+
+// Inclure le fichier de configuration pour la connexion à la base de données
+include('../config.php');
 
 // Affichage d'une erreur s’il y en a en session
 $error = null;

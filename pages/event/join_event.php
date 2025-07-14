@@ -1,7 +1,8 @@
 <?php
-require '../config.php'; // Assurez-vous que votre config.php est bien inclus
+ // Assurez-vous que votre config.php est bien inclus
 
 session_start();
+require '../config.php';
 
 // Vérifie si l'utilisateur est connecté
 if (!isset($_SESSION['user_id'])) {

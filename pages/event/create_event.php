@@ -1,6 +1,8 @@
 <?php
-include('../config.php');
+
 session_start();
+
+include('../config.php');
 
 // Rediriger si l'utilisateur n'est pas connecté
 if (!isset($_SESSION['user_id'])) {
