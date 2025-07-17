@@ -1,73 +1,3 @@
-<?php
-// events.php
-
-session_start();
-require_once('../config.php');
-
-// Initialisation des filtres
-$filter_player_count = isset($_GET['player_count']) ? $_GET['player_count'] : '';
-$filter_date = isset($_GET['date']) ? $_GET['date'] : '';
-$filter_username = isset($_GET['username']) ? $_GET['username'] : '';
-
-// Affichage d'une erreur s’il y en a en session
-$error = null;
-if (isset($_SESSION['error_message'])) {
-    $error = $_SESSION['error_message'];
-    unset($_SESSION['error_message']);
-}
-
-try {
-    // Construction de la requête avec filtres
-    $sql = "SELECT events.*, users.username
-            FROM events
-            JOIN users ON events.created_by = users.id
-            WHERE events.status = 'valide'";
-
-    if ($filter_player_count) {
-        $sql .= " AND events.player_count >= :player_count";
-    }
-    if ($filter_date) {
-        $sql .= " AND DATE(events.start_time) = :date";
-    }
-    if ($filter_username) {
-        $sql .= " AND users.username LIKE :username";
-    }
-
-    // On limite à 3 événements récents
-    $sql .= " ORDER BY start_time DESC LIMIT 3";
-
-    $stmt = $pdo->prepare($sql);
-
-    // Binding des paramètres pour la requête préparée
-    if ($filter_player_count) {
-        $stmt->bindParam(':player_count', $filter_player_count, PDO::PARAM_INT);
-    }
-    if ($filter_date) {
-        $stmt->bindParam(':date', $filter_date, PDO::PARAM_STR);
-    }
-    if ($filter_username) {
-        $stmt->bindParam(':username', $filter_username, PDO::PARAM_STR);
-    }
-
-    $stmt->execute();
-    $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    // Si la requête est une requête AJAX, retourner les données en JSON
-    if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
-        header('Content-Type: application/json');
-        echo json_encode($events);
-        exit; // Arrêter l'exécution ici pour les requêtes AJAX
-    }
-} catch (PDOException $e) {
-    if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
-        header('Content-Type: application/json');
-        echo json_encode(['error' => $e->getMessage()]);
-        exit;
-    } else {
-        die("Erreur lors de la récupération des événements : " . $e->getMessage());
-    }
-}
-?>
   <!-- Section principale -->
     <section class="hero">
         <div class="hero-content">
@@ -176,9 +106,9 @@ try {
         </div>
       </section>
 
-      <h2 class="section-title">📅 Derniers événements</h2>
+      <h2 class="section-title">ChaÎnes lives qui pourraient vous plaire</h2>
 
-      <div class="event-list" id="event-list">
+      <!-- <div class="event-list" id="event-list">
         <?php if (count($events) > 0): ?>
             <?php foreach ($events as $event): ?>
                 <div class="event-card">
@@ -199,7 +129,7 @@ try {
         <?php else: ?>
             <p class="no-event">Aucun événement à afficher pour le moment.</p>
         <?php endif; ?>
-    </div>
+    </div> -->
 
     <div class="banner">
         <div class="banner-content">
