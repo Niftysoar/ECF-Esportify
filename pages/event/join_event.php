@@ -1,7 +1,9 @@
 <?php
-require '../config.php'; // Assurez-vous que votre config.php est bien inclus
+ // Assurez-vous que votre config.php est bien inclus
 
 session_start();
+
+require '../config.php';
 
 // Vérifie si l'utilisateur est connecté
 if (!isset($_SESSION['user_id'])) {
@@ -38,7 +40,8 @@ if (isset($_GET['event_id'])) {
     }
 
     // Insère la participation (par défaut en attente)
-    $stmt = $pdo->prepare("INSERT INTO participations (user_id, event_id, status, joined) VALUES (:user_id, :event_id, 'en_attente', 0)");
+
+    $stmt = $pdo->prepare("INSERT INTO participations (user_id, event_id, status, joined) VALUES (:user_id, :event_id, 'en_attente', FALSE)");
     $success = $stmt->execute([
         'user_id' => $user_id,
         'event_id' => $event_id

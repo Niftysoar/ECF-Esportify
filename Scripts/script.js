@@ -59,9 +59,9 @@ function isConnected(){
 
 /*
 disconnected
-connected (admin ou client)
+connected (admin ou joueur)
     - admin
-    - client
+    - joueur
 */
 function showAndHideElementsForRoles(){
     const userConnected = isConnected();
@@ -86,8 +86,13 @@ function showAndHideElementsForRoles(){
                     element.classList.add("d-none");
                 }
                 break;
-            case 'client': 
-                if(!userConnected || role != "client"){
+            case 'organisateur': 
+                if(!userConnected || role != "organisateur"){
+                    element.classList.add("d-none");
+                }
+                break;
+            case 'joueur': 
+                if(!userConnected || role != "joueur"){
                     element.classList.add("d-none");
                 }
                 break;
@@ -128,3 +133,14 @@ function getInfosUser(){
         console.error("erreur lors de la récupération des données utilisateur", error);
     });
 }
+
+
+// // ===== PROTECTION CONTRE LES ATTAQUES XSS =====
+// function escapeHtml(unsafe) {
+//     return unsafe
+//         .replace(/&/g, "&amp;") // Remplace & par &amp;
+//         .replace(/</g, "&lt;") // Remplace < par &lt;
+//         .replace(/>/g, "&gt;") // Remplace > par &gt;
+//         .replace(/"/g, "&quot;") // Remplace " par &quot;
+//         .replace(/'/g, "&#039;"); // Remplace ' par &#039;
+// }

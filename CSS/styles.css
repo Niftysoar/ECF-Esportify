@@ -1,5 +1,12 @@
-@import url('https://fonts.cdnfonts.com/css/gt-walsheim-pro'); /* Import GT Walsheim */
-@import url('https://fonts.cdnfonts.com/css/stratumno1'); /* Import StratumNo1 */
+@font-face {
+    font-family: 'GT Walsheim Pro';
+    src: url(../assets/fonts/GTWalsheimPro-Regular.ttf);
+}
+
+@font-face {
+    font-family: 'StratumNo1';
+    src: url(../assets/fonts/stratum-no1-2.ttf);
+}
 
 *{
     margin: 0;
@@ -19,7 +26,7 @@ body {
     margin: 0;
     font-family: 'GT Walsheim Pro', sans-serif;
     position: relative;
-    /* background: url(../images/fond.png) no-repeat center/cover; */
+    /* background: url(../assets/images/fond.png) no-repeat center/cover; */
 }
 
 p{
@@ -109,12 +116,12 @@ header{
 }
 
 .search-bar:focus-within {
-    outline: 2px solid #FF4A4A;
+    outline: 2px solid #FF4C4C;
 }
 
 .btn {
     max-height: 50px;
-    background-color: #FF4A4A;
+    background-color: #FF4C4C;
     color: white;
     padding: 8px 15px;
     text-decoration: none;
@@ -362,7 +369,7 @@ header{
 
 .highlight p {
     font-family: 'StratumNo1', sans-serif;
-    color: #FF4A4A;
+    color: #FFCA4C;
 }
 
 .hero-content p {
@@ -706,7 +713,7 @@ header{
   
 .about-page-hero {
     text-align: center;
-    background: url('../images/banner.png') no-repeat center/cover;
+    background: url('../assets/images/banner.png') no-repeat center/cover;
     height: 350px;
     padding: 35px;
 }
@@ -724,7 +731,7 @@ header{
   
 .about-page-content {
     padding: 60px 20px;
-    background-color: #ff4c4c;
+    background-color: #FF4C4C;
 }
   
 .box {
@@ -736,7 +743,7 @@ header{
 }
   
 .box h2 {
-    color: #ff4c4c;
+    color: #FF4C4C;
     font-size: 50px;
 }
 
@@ -999,7 +1006,7 @@ p a:hover {
 
 .filter-group select:focus {
     outline: none;
-    border-color: #ff4c4c;
+    border-color: #FF4C4C;
 }
 
 

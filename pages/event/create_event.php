@@ -1,11 +1,19 @@
 <?php
-include('../config.php');
+
 session_start();
+
+include('../config.php');
 
 // Rediriger si l'utilisateur n'est pas connecté
 if (!isset($_SESSION['user_id'])) {
     header('Location: /signin');
     exit();
+}
+
+// Vérifier si l'utilisateur est connecté et a les droits organisateur ou admin
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'organisateur' && $_SESSION['role'] !== 'admin') {
+    header('Location: /'); // Rediriger vers la page de connexion si l'utilisateur n'est pas un organisateur ou admin
+    exit;
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -22,6 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Calcul de la date à partir de laquelle l'événement peut être démarré (30 minutes avant)
         $can_start_from = date('Y-m-d H:i:s', strtotime($start_time) - 1800); // 1800s = 30min
 
+        $pdo->exec("SELECT setval('events_id_seq', (SELECT MAX(id) FROM events));");
         $query = "INSERT INTO events (title, description, player_count, start_time, end_date, created_by, can_start_from, status) 
                   VALUES (:title, :description, :player_count, :start_time, :end_date, :created_by, :can_start_from, 'en_attente')";
 

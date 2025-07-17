@@ -122,8 +122,8 @@ try {
                         <p class="event-description"><?php echo htmlspecialchars($event['description']); ?></p>
                         <div class="event-meta">
                             <p><strong>Organisé par :</strong> <?php echo htmlspecialchars($event['username']); ?></p>
-                            <p><i class="fa-solid fa-user-group"></i> <?php echo htmlspecialchars($event['player_count']); ?></p>
-                            <p><i class="fa-regular fa-calendar"></i> Le <?php echo date('d/m/Y', strtotime($event['start_time'])); ?> de <?php echo date('H:i', strtotime($event['start_time'])); ?> à <?php echo date('H:i', strtotime($event['end_date'])); ?></p>
+                            <p><strong><i class="fa-solid fa-user-group"></i></strong> <?php echo htmlspecialchars($event['player_count']); ?></p>
+                            <p><strong><i class="fa-regular fa-calendar"></i></strong> Le <?php echo date('d/m/Y', strtotime($event['start_time'])); ?> de <?php echo date('H:i', strtotime($event['start_time'])); ?> à <?php echo date('H:i', strtotime($event['end_date'])); ?></p>
                         </div>
                         <div class="event-actions">
                             <a href="/pages/event/join_event.php?event_id=<?= $event['id'] ?>" class="btn btn-highlight">Rejoindre</a>

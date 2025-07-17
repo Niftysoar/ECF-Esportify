@@ -1,9 +1,10 @@
 <?php
-// Connexion à la base de données
-require_once('../config.php');
 
 // Démarrer la session
 session_start();
+
+// Connexion à la base de données
+require_once('../config.php');
 
 // Vérifier si l'utilisateur est connecté et a les droits admin
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {

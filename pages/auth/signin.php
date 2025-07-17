@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 
 // Démarrer la session
 session_start();
@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $error = "Identifiants incorrects.";
     }
 }
-?>
+?>-->
 
     <section class="connexion">
         <h1>Contents de <span class="highlight">vous voir !</span></h1>
@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="error"><?php echo $error; ?></div>
         <?php endif; ?>
 
-        <form action="/pages/auth/signin.php" method="POST" class="form">
+        <form id="login-form" class="form">
             <div class="input-container">
                 <input type="text" id="username" name="username" required>
                 <label class="label" for="username">Nom d'utilisateur</label>
@@ -64,8 +64,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
             <p><a href="/forgot-password">Mot de passe oublié ?</a></p>
             <div class="other-container">
+                <div id="error-message" style="color: red; margin-bottom: 1rem;"></div>
                 <button type="submit" class="btn btn-highlight">CONNEXION</button>
                 <p>Nouveau ? <a href="/signup">Inscrivez-vous</a></p>
             </div>
         </form>
     </section>
+
+    <script type="module" src="/Scripts/Routeur/login.js"></script>
