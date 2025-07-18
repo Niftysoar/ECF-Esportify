@@ -159,68 +159,6 @@ include('pages/config.php');
     <!-- Global site behavior -->
     <script src="Scripts/script.js"></script>
 
-    <!-- <script type="module">
-        if (window.location.pathname === "/signin") {
-            console.log("Connexion : script actif sur /signin");
-
-            // Observe l’apparition du formulaire dans la page
-            const observer = new MutationObserver(() => {
-                const form = document.getElementById("login-form");
-                if (form) {
-                    console.log("Formulaire détecté, événement attaché.");
-
-                    observer.disconnect(); // stoppe l’observation une fois trouvé
-
-                    form.addEventListener("submit", async (event) => {
-                        event.preventDefault();
-                        console.log("Soumission interceptée");
-
-                        const username = document.getElementById("username").value.trim();
-                        const password = document.getElementById("password").value;
-
-                        try {
-                            const response = await fetch("pages/API/login.php", {
-                                method: "POST",
-                                headers: {
-                                    "Content-Type": "application/json",
-                                },
-                                body: JSON.stringify({ username, password }),
-                            });
-
-                            const result = await response.json();
-                            console.log("Réponse JSON :", result);
-
-                            if (result.success) {
-                                document.cookie = "accesstoken=" + result.token + "; path=/";
-                                document.cookie = "role=" + result.role + "; path=/";
-
-                                const target = result.role === "admin" ? "/admin" : "/dashboard";
-                                console.log("Redirection vers :", target);
-
-                                window.history.pushState({}, "", target);
-                                LoadContentPage();
-                            } else {
-                                document.getElementById("error-message").innerText = result.error || "Erreur inconnue.";
-                            }
-
-                        } catch (err) {
-                            console.error("Erreur réseau :", err);
-                            document.getElementById("error-message").innerText = "Erreur réseau.";
-                        }
-                    });
-                } else {
-                    console.log("En attente du formulaire...");
-                }
-            });
-
-            // Lance l’observation du DOM pour détecter quand #main-page change
-            observer.observe(document.getElementById("main-page"), {
-                childList: true,
-                subtree: true,
-            });
-        }
-    </script> -->
-
     <script type="module" src="Scripts/Routeur/login.js"></script>
 
 </body>
