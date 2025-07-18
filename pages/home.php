@@ -1,4 +1,26 @@
-  <!-- Section principale -->
+<?php
+session_start();
+require_once 'config.php'; // Assurez-vous que le chemin est correct
+
+// Récupère les 3 derniers événements validés
+try {
+    $sql = "SELECT events.*, users.username
+            FROM events
+            JOIN users ON events.created_by = users.id
+            WHERE events.status = 'valide'
+            ORDER BY events.start_time DESC
+            LIMIT 3";
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    $latest_events = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    // Gérer l'erreur de base de données
+    die("Erreur lors de la récupération des événements : " . $e->getMessage());
+}
+?>
+
+    <!-- Section principale -->
     <section class="hero">
         <div class="hero-content">
             <h1>
@@ -106,30 +128,34 @@
         </div>
       </section>
 
-      <h2 class="section-title">ChaÎnes lives qui pourraient vous plaire</h2>
+      <section id="lives">
+          <div class="container">
+                <h2>ChaÎnes lives qui pourraient vous plaire</h2>
 
-      <!-- <div class="event-list" id="event-list">
-        <?php if (count($events) > 0): ?>
-            <?php foreach ($events as $event): ?>
-                <div class="event-card">
-                    <h3 class="event-title"><?php echo htmlspecialchars($event['title']); ?></h3>
-                    <p class="event-description"><?php echo htmlspecialchars($event['description']); ?></p>
-                    <div class="event-meta">
-                        <p><strong>Organisé par :</strong> <?php echo htmlspecialchars($event['username']); ?></p>
-                        <p><strong><i class="fa-solid fa-user-group"></i></strong> <?php echo htmlspecialchars($event['player_count']); ?></p>
-                        <p><strong><i class="fa-regular fa-calendar"></i></strong> Le <?php echo date('d/m/Y', strtotime($event['start_time'])); ?> de <?php echo date('H:i', strtotime($event['start_time'])); ?> à <?php echo date('H:i', strtotime($event['end_date'])); ?></p>
-                    </div>
-                    <div class="event-actions">
-                        <a href="/pages/event/join_event.php?event_id=<?= $event['id'] ?>" class="btn btn-highlight">Rejoindre</a>
-                        <a href="chat_event.php?event_id=<?= $event['id'] ?>" class="button">Chat</a>
-                        <a href="/pages/auth/dashboard.php?add_favorite=<?= $event['id']; ?>" class="button">Favoris</a>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <p class="no-event">Aucun événement à afficher pour le moment.</p>
-        <?php endif; ?>
-    </div> -->
+                <div class="event-list" id="event-list">
+                  <?php if (count($latest_events) > 0): ?>
+                      <?php foreach ($latest_events as $event): ?>
+                          <div class="event-card">
+                              <h3 class="event-title"><?php echo htmlspecialchars($event['title']); ?></h3>
+                              <p class="event-description"><?php echo htmlspecialchars($event['description']); ?></p>
+                              <div class="event-meta">
+                                  <p><strong>Organisé par :</strong> <?php echo htmlspecialchars($event['username']); ?></p>
+                                  <p><strong><i class="fa-solid fa-user-group"></i></strong> <?php echo htmlspecialchars($event['player_count']); ?></p>
+                                  <p><strong><i class="fa-regular fa-calendar"></i></strong> Le <?php echo date('d/m/Y', strtotime($event['start_time'])); ?> de <?php echo date('H:i', strtotime($event['start_time'])); ?> à <?php echo date('H:i', strtotime($event['end_date'])); ?></p>
+                              </div>
+                              <div class="event-actions">
+                                  <a href="/pages/event/join_event.php?event_id=<?= $event['id'] ?>" class="btn btn-highlight">Rejoindre</a>
+                                  <a href="chat_event.php?event_id=<?= $event['id'] ?>" class="button">Chat</a>
+                                  <a href="/pages/auth/dashboard.php?add_favorite=<?= $event['id']; ?>" class="button">Favoris</a>
+                              </div>
+                          </div>
+                      <?php endforeach; ?>
+                  <?php else: ?>
+                      <p class="no-event">Aucun événement à afficher pour le moment.</p>
+                  <?php endif; ?>
+              </div>
+          </div>
+      </section>
 
     <div class="banner">
         <div class="banner-content">
