@@ -64,11 +64,7 @@ $stmt_scores = $pdo->prepare("
     ORDER BY s.created_at DESC
 ");
 $stmt_scores->execute([$_SESSION['user_id']]);
-<<<<<<< HEAD
-$scores = $stmt_scores->fetchAll();
-=======
 $scores = $stmt_scores->fetchAll(PDO::FETCH_ASSOC);
->>>>>>> Docker-setup
 
 ?>
 
