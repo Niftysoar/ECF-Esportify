@@ -4,7 +4,7 @@
 session_start();
 
 // Connexion à la base de données
-require_once('../config.php');
+require_once(__DIR__ . '/../../config.php');
 
 // Vérifier si l'utilisateur est connecté et a les droits admin
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['event_id'], $_POST['ac
     $updateStmt->execute(['new_status' => $new_status, 'event_id' => $event_id]);
 
     // Redirection vers la page après mise à jour
-    header('Location: /admin');
+    header('Location: /eventmanager');
     exit;
 }
 
@@ -39,9 +39,9 @@ $pendingEvents = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <section class="admin">
 
-        <h1>
-            Événements en <span class="highlight">attente <br>de validation</span>
-        </h1>
+        <h1>Événements en <span class="highlight">attente <br>de validation</span></h1>
+
+        <a href="/admin" class="btn btn-highlight">Retour au tableau de bord</a>
 
         <!-- Formulaire de filtre -->
         <form id="filter-form" class="filter-bar">
@@ -97,7 +97,7 @@ $pendingEvents = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <td><?= htmlspecialchars($event['player_count']); ?></td>
                             <td><?= htmlspecialchars($event['username']); ?></td>
                             <td>
-                                <form action="/pages/auth/admin_dashboard.php" method="POST" style="display:inline-block;">
+                                <form action="/pages/auth/admin/admin_events.php" method="POST" style="display:inline-block;">
                                     <input type="hidden" name="event_id" value="<?= $event['id']; ?>">
                                     <button type="submit" name="action" value="accept" class="btn-accept">Accepter</button>
                                     <button type="submit" name="action" value="reject" class="btn-reject">Refuser</button>

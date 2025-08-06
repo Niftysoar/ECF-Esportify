@@ -1121,20 +1121,56 @@ p a:hover {
     margin-bottom: 100px;
 }
 
-/* ADMIN DASHBOARD */
+/* ADMIN DASHNOARD */
 .admin {
     max-width: 1500px;
     margin: 5% auto;
     padding: 0 20px;
 }
 
-.admin h1 {
-    margin-bottom: 40px;
+.card-container { 
+    display: flex; 
+    gap: 1rem; 
+    justify-content: space-between; 
+    margin-top: 2rem; 
+    flex-wrap: wrap; 
+}
+
+.card { 
+    flex: 1; 
+    padding: 1rem; 
+    border: 1px solid #ddd; 
+    border-radius: 5px; 
+    min-width: 250px; 
+}
+    
+.card h2 { 
+    margin-bottom: 1rem; 
+    font-size: 1.5rem; 
+}
+
+.card-users, .card-events, .card-registrations {
+    background-color: #1A1A1A;
+    border: #FF4C4C 2px solid;
+    padding: 25px;
+    border-radius: 12px;
+}
+
+.links { 
+    margin-top: 2rem; 
+    display: flex; 
+    gap: 1rem; 
+    justify-content: center; 
+}
+
+/* ADMIN EVENT MANAGER */
+.admin_events h1 {
+    margin-bottom: 60px;
 }
 
 table {
     width: 90%;
-    margin: 20px auto;
+    margin: 40px auto;
     border-collapse: collapse;
     background-color: #1A1A1A;
 }

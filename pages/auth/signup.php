@@ -1,7 +1,7 @@
 <?php
 // Démarre la session
 session_start();
-include('../config.php');
+require_once('../config.php');
 
 // Vérification si le formulaire est soumis
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
