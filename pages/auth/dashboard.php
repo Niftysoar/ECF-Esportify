@@ -79,32 +79,7 @@ $scores = $stmt_scores->fetchAll(PDO::FETCH_ASSOC);
             </div>
         <?php endif; ?>
 
-
-            <!-- Mes événements -->
-            <h2>Tous Mes <span class="highlight">Événements</span></h2>
-            <div class="event-list">
-                <?php if ($events_user): ?>
-                    <?php foreach ($events_user as $event): ?>
-                        <div class="event-card">
-                            <h3 class="event-title"><?= htmlspecialchars($event['title']); ?></h3>
-                            <p class="event-description"><?= htmlspecialchars($event['description']); ?></p>
-                            <div class="event-meta">
-                                <p><strong>Status :</strong>
-                                    <span class="event-status <?= strtolower($event['status']); ?>">
-                                        <?= htmlspecialchars($event['status']); ?>
-                                    </span>
-                                </p>
-                                <p><strong><i class="fa-solid fa-user-group"></i></strong> <?= htmlspecialchars($event['player_count']); ?></p>
-                                <p><strong><i class="fa-regular fa-calendar"></i></strong> Le <?= date('d/m/Y', strtotime($event['start_time'])); ?> de <?= date('H:i', strtotime($event['start_time'])); ?> à <?= date('H:i', strtotime($event['end_date'])); ?></p>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <p class="no-event">Aucun événement trouvé.</p>
-                <?php endif; ?>
-            </div>
-
-            <a href="/create" class="btn btn-highlight">Créer un Événement</a>
+            <a href="/orga" class="btn btn-highlight">Test orga</a>
 
             <!-- Favoris -->
             <h2>Événements <span class="highlight">Favoris</span></h2>

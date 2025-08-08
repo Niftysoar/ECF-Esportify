@@ -39,6 +39,12 @@ class EventManager {
         return $stmt->fetchAll();
     }
 
+    public function getEventsByOrganizer($organizer_id) {
+        $stmt = $this->pdo->prepare("SELECT * FROM events WHERE created_by = :id ORDER BY start_time DESC");
+        $stmt->execute(['id' => $organizer_id]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     // --- Rejoindre un événement ---
     public function joinEvent($eventId, $userId) {
         // Vérifier si déjà inscrit
@@ -83,6 +89,25 @@ class EventManager {
             ':end_date'       => $end_date,
             ':can_start_from' => $can_start_from
         ]);
+    }
+
+    /**
+     * Écrit un log de lancement d'événement
+     */
+    public function logLaunch(int $event_id, int $organizer_id): void {
+        // Optionnel : tu peux aussi vérifier si l'event appartient à l'organisateur
+        $stmt = $this->pdo->prepare("SELECT * FROM events WHERE id = :id AND created_by = :org_id");
+        $stmt->execute([
+            ':id' => $event_id,
+            ':org_id' => $organizer_id
+        ]);
+
+        if ($stmt->rowCount() === 0) {
+            throw new Exception("Événement non trouvé ou non autorisé.");
+        }
+
+        $log = "[" . date('Y-m-d H:i:s') . "] Lancement de l'événement ID $event_id par l'organisateur ID $organizer_id\n";
+        file_put_contents(__DIR__ . '/../event_log.txt', $log, FILE_APPEND);
     }
 }
 ?>
