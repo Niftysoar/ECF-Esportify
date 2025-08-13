@@ -1122,7 +1122,7 @@ p a:hover {
 }
 
 /* ADMIN DASHNOARD */
-.admin {
+.admin, .orga {
     max-width: 1500px;
     margin: 5% auto;
     padding: 0 20px;
@@ -1164,7 +1164,7 @@ p a:hover {
 }
 
 /* ADMIN EVENT MANAGER */
-.admin_events h1 {
+.admin h1, .orga h1 {
     margin-bottom: 60px;
 }
 

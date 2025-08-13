@@ -41,8 +41,6 @@ $pendingEvents = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         <h1>Événements en <span class="highlight">attente <br>de validation</span></h1>
 
-        <a href="/admin" class="btn btn-highlight">Retour au tableau de bord</a>
-
         <!-- Formulaire de filtre -->
         <form id="filter-form" class="filter-bar">
             <div class="filter-group">

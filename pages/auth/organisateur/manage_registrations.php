@@ -21,14 +21,18 @@ if (
     $status = $_POST['action'] === 'accept' ? 'accepte' : 'refuse';
 
     $manager->updateStatus($user_id, $event_id, $status, $organizer_id);
+
+    // Redirection vers la page après mise à jour
+    header('Location: /userregister');
+    exit;
 }
 
 // Récupération des participations
 $registrations = $manager->getRegistrationsByOrganizer($organizer_id);
 ?>
 
-<section class="container my-5">
-    <h1>Gestion des <span class="highlight">participations à vos événements</span></h1>
+<section class="orga">
+    <h1>Gestion des <span class="highlight">participations<br> à vos événements</span></h1>
 
     <?php if (count($registrations) === 0): ?>
         <div class="alert">Aucune participation enregistrée.</div>
@@ -55,8 +59,8 @@ $registrations = $manager->getRegistrationsByOrganizer($organizer_id);
                                 <form action="/pages/auth/organisateur/manage_registrations.php" method="POST" style="display:inline-block;">
                                     <input type="hidden" name="user_id" value="<?= $r['user_id'] ?>">
                                     <input type="hidden" name="event_id" value="<?= $r['event_id'] ?>">
-                                    <button name="action" value="accept" class="btn-accept">Accepter</button>
-                                    <button name="action" value="reject" class="btn-reject">Refuser</button>
+                                    <button type="submit" name="action" value="accept" class="btn-accept">Accepter</button>
+                                    <button type="submit" name="action" value="reject" class="btn-reject">Refuser</button>
                                 </form>
                             <?php else: ?>
                                 <span class="text-muted">—</span>
@@ -67,6 +71,4 @@ $registrations = $manager->getRegistrationsByOrganizer($organizer_id);
             </tbody>
         </table>
     <?php endif; ?>
-
-    <a href="/orga" class="btn btn-highlight">Retour à mes événements</a>
 </section>

@@ -47,6 +47,17 @@ services:
     networks:
       - app-network
 
+  # mongo:
+  #   image: 'mongo:4.2.16-bionic'
+  #   ports:
+  #     - "27017:27017"
+  #   environment:
+  #     MONGO_INITDB_DATABASE: logs
+  #     MONGO_INITDB_ROOT_USER: admin
+  #     MONGO_INITDB_ROOT_PASSWORD: supermotdepasse
+  #   volumes:
+  #     - ./db-data/mongo/:/data/db
+
 networks:
   app-network:
     driver: bridge

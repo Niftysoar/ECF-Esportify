@@ -16,7 +16,7 @@ $eventManager = new EventManager($pdo);
 $events = $eventManager->getEventsByOrganizer($organizer_id);
 ?>
 
-<section class="container my-5">
+<section class="orga">
     <h1>Mes <span class="highlight">événements</span></h1>
 
     <a href="/createevent" class="btn btn-highlight">Créer un événement</a>

@@ -42,5 +42,37 @@ class ParticipationManager {
         $stmt->execute(['organizer_id' => $organizer_id]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    // --- Rejoindre un événement ---
+    public function joinEvent($user_id, $event_id) {
+        // Vérifie que l'événement existe et est validé
+        $stmt = $this->pdo->prepare("SELECT * FROM events WHERE id = :event_id AND status = 'valide'");
+        $stmt->execute(['event_id' => $event_id]);
+        if ($stmt->rowCount() === 0) {
+            throw new Exception("Événement non trouvé ou non validé.");
+        }
+
+        // Vérifie si l'utilisateur est déjà inscrit
+        $stmt = $this->pdo->prepare("SELECT * FROM participations WHERE user_id = :user_id AND event_id = :event_id");
+        $stmt->execute([
+            'user_id' => $user_id,
+            'event_id' => $event_id
+        ]);
+        if ($stmt->rowCount() > 0) {
+            throw new Exception("Vous êtes déjà inscrit à cet événement.");
+        }
+
+        // Ajoute la participation
+        $stmt = $this->pdo->prepare("
+            INSERT INTO participations (user_id, event_id, status, joined) 
+            VALUES (:user_id, :event_id, 'en_attente', FALSE)
+        ");
+        $stmt->execute([
+            'user_id' => $user_id,
+            'event_id' => $event_id
+        ]);
+
+        return true;
+    }
 }
 ?>

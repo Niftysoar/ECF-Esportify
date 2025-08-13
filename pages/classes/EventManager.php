@@ -34,31 +34,39 @@ class EventManager {
     }
 
     // --- Récupérer tous les événements validés ---
-    public function getEvents() {
-        $stmt = $this->pdo->query("SELECT * FROM events WHERE status = 'valide'");
-        return $stmt->fetchAll();
+    public function getEvents($filters = []) {
+        $sql = "SELECT e.*, u.username
+                FROM events e
+                JOIN users u ON e.created_by = u.id
+                WHERE e.status = 'valide'";
+
+        $params = [];
+
+        if (!empty($filters['player_count'])) {
+            $sql .= " AND e.player_count >= :player_count";
+            $params[':player_count'] = $filters['player_count'];
+        }
+        if (!empty($filters['date'])) {
+            $sql .= " AND DATE(e.start_time) = :date";
+            $params[':date'] = $filters['date'];
+        }
+        if (!empty($filters['username'])) {
+            $sql .= " AND u.username LIKE :username";
+            $params[':username'] = "%" . $filters['username'] . "%";
+        }
+
+        $sql .= " ORDER BY e.start_time ASC";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($params);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getEventsByOrganizer($organizer_id) {
         $stmt = $this->pdo->prepare("SELECT * FROM events WHERE created_by = :id ORDER BY start_time DESC");
         $stmt->execute(['id' => $organizer_id]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    // --- Rejoindre un événement ---
-    public function joinEvent($eventId, $userId) {
-        // Vérifier si déjà inscrit
-        $stmt = $this->pdo->prepare("SELECT * FROM participations WHERE event_id = :event_id AND user_id = :user_id");
-        $stmt->execute([':event_id' => $eventId, ':user_id' => $userId]);
-
-        if ($stmt->rowCount() > 0) {
-            throw new Exception("Vous êtes déjà inscrit à cet événement.");
-        }
-
-        $stmt = $this->pdo->prepare("INSERT INTO participations (event_id, user_id, status) VALUES (:event_id, :user_id, 'en_attente')");
-        $stmt->execute([':event_id' => $eventId, ':user_id' => $userId]);
-
-        return true;
     }
 
     // --- MODIFIER un événement ---

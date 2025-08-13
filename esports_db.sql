@@ -142,8 +142,7 @@ CREATE TABLE users (
 INSERT INTO users (id, username, email, password, role, created_at) VALUES
 (1, 'Nastfy', 'admin@example.com', '$2y$10$yLOpXqjVnB5v5g8cd32rqe5eJQhvurUMK1YzmClkw2qDV89aLzXFu', 'admin', '2024-11-06 11:57:15'),
 (2, 'Organisatueur', 'orga1@example.com', '$2y$10$5hdDNvDSwLgvOF7N2mYaZ.G1KZ.o3ihoM8MFVIgl37HKBjhOjcupW', 'organisateur', '2024-11-07 09:25:00'),
-(3, 'Joueur2Fou', 'joueur1@example.com', '$2y$10$zbUe6EB3GpvODEUeMSHGjO8Hja9GjqxKvZuAaPocusrr4yr4bmZLi', 'joueur', '2024-11-07 10:00:00'),
-(4, 'Test', 'test@example.com', '$2y$10$zbUe6EB3GpvODEUeMSHGjO8Hja9GjqxKvZuAaPocusrr4yr4bmZLi', 'joueur', '2024-11-07 10:00:00');
+(3, 'Joueur2Fou', 'joueur1@example.com', '$2y$10$zbUe6EB3GpvODEUeMSHGjO8Hja9GjqxKvZuAaPocusrr4yr4bmZLi', 'joueur', '2024-11-07 10:00:00');
 
 --
 -- Index pour les tables déchargées

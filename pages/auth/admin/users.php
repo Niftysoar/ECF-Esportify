@@ -10,6 +10,10 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
 
 $userManager = new UserManager($pdo);
 $message = null;
+if (isset($_SESSION['popup_message'])) {
+    $message = $_SESSION['popup_message'];
+    unset($_SESSION['popup_message']);
+}
 
 // ---- Gestion des actions ----
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'], $_POST['user_id'])) {
@@ -18,17 +22,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'], $_POST['use
     try {
         if ($_POST['action'] === 'delete') {
             $userManager->deleteUser($userId, $_SESSION['user_id']);
-            $message = "Utilisateur supprimé avec succès.";
+            $_SESSION['popup_message'] = "Utilisateur supprimé avec succès.";
         }
 
         if ($_POST['action'] === 'update_role' && !empty($_POST['new_role'])) {
             $userManager->updateRole($userId, $_POST['new_role']);
-            $message = "Rôle mis à jour avec succès.";
+            $_SESSION['popup_message'] = "Rôle mis à jour avec succès.";
         }
 
         // Rafraîchissement après action
-        header("Location: ".$_SERVER['PHP_SELF']."?msg=" . urlencode($message));
-        exit();
+        header('Location: /usermanager');
+        exit;
     } catch (Exception $e) {
         $message = $e->getMessage();
     }
@@ -45,10 +49,11 @@ if (isset($_GET['msg'])) {
     <h1>Utilisateurs <span class="highlight">enregistrés</span></h1>
 
     <?php if ($message): ?>
-        <div class="alert alert-success"><?= htmlspecialchars($message) ?></div>
+        <div class="popup-error" id="popupError">
+            <p><?= htmlspecialchars($message) ?></p>
+            <button class="btn btn-highlight" onclick="document.getElementById('popupError').style.display='none'">Fermer</button>
+        </div>
     <?php endif; ?>
-
-    <a href="/admin" class="btn btn-highlight">Retour au tableau de bord</a>
 
     <?php if (empty($users)): ?>
         <div class="alert alert-info mt-4">Aucun utilisateur enregistré pour le moment.</div>
@@ -69,7 +74,7 @@ if (isset($_GET['msg'])) {
                         <td><?= htmlspecialchars($u['username']); ?></td>
                         <td><?= htmlspecialchars($u['email']); ?></td>
                         <td>
-                            <form method="post" style="display:inline-block;">
+                            <form action="/pages/auth/admin/users.php" method="POST" style="display:inline-block;">
                                 <input type="hidden" name="user_id" value="<?= $u['id']; ?>">
                                 <select name="new_role" <?= $u['id'] === $_SESSION['user_id'] ? 'disabled' : ''; ?>>
                                     <option value="joueur" <?= $u['role'] === 'joueur' ? 'selected' : ''; ?>>Joueur</option>
@@ -84,7 +89,7 @@ if (isset($_GET['msg'])) {
                         <td><?= date('d/m/Y H:i', strtotime($u['created_at'])); ?></td>
                         <td>
                             <?php if ($u['id'] !== $_SESSION['user_id']): ?>
-                                <form method="post" onsubmit="return confirm('Confirmer la suppression de <?= htmlspecialchars($u['username']); ?> ?');">
+                                <form action="/pages/auth/admin/users.php" method="POST" onsubmit="return confirm('Confirmer la suppression de <?= htmlspecialchars($u['username']); ?> ?');">
                                     <input type="hidden" name="user_id" value="<?= $u['id']; ?>">
                                     <button type="submit" name="action" value="delete" class="btn-reject">Supprimer</button>
                                 </form>
