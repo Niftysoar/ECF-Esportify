@@ -8,6 +8,11 @@ if (!isset($_SESSION['user_id']) || ($_SESSION['role'] !== 'organisateur' && $_S
     exit();
 }
 
+// Génération du token CSRF si absent
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
 $event_id = $_GET['id'] ?? null;
 if (!$event_id) {
     die("ID d'événement manquant.");
@@ -28,14 +33,19 @@ $success = '';
 
 // Soumission du formulaire
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Vérification du token CSRF
+    if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+        die("Erreur CSRF : requête invalide.");
+    }
+    
     try {
         $eventManager->updateEvent(
             $event_id,
-            $_POST['title'],
-            $_POST['description'],
+            htmlspecialchars(trim($_POST['title'])),
+            htmlspecialchars(trim($_POST['description'])),
             $_POST['player_count'],
-            $_POST['start_time'],
-            $_POST['end_date']
+            htmlspecialchars($_POST['start_time']),
+            htmlspecialchars($_POST['end_date'])
         );
         $success = "Événement mis à jour avec succès.";
         // Rechargement des données mises à jour
@@ -58,6 +68,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php endif; ?>
 
     <form action="" method="POST" class="form">
+        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
+
         <div class="input-container">
             <input type="text" name="title" id="title" required value="<?= htmlspecialchars($event['title']) ?>">
             <label class="label" for="title">Titre</label>

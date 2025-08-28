@@ -5,6 +5,11 @@ require_once('../classes/UserManager.php');
 
 $userManager = new UserManager($pdo);
 
+// Génération du token CSRF si absent
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
 // Vérifier si déjà connecté
 if (isset($_SESSION['user_id'])) {
     header("Location: " . ($_SESSION['role'] == 'admin' ? "/admin" : "/dashboard"));
@@ -14,7 +19,12 @@ if (isset($_SESSION['user_id'])) {
 $error = null;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = trim($_POST['username']);
+    // Vérification du token CSRF
+    if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+        die("Erreur CSRF : requête invalide.");
+    }
+    
+    $username = htmlspecialchars(trim($_POST['username']));
     $password = trim($_POST['password']);
 
     try {
@@ -43,8 +53,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <?php endif; ?>
 
     <form id="login-form" class="form" method="POST" action="">
+        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
+
         <div class="input-container">
-            <input type="text" id="username" name="username" required>
+            <input type="text" name="username" id="username" required>
             <label class="label" for="username">Nom d'utilisateur</label>
         </div>
         <div class="input-container">

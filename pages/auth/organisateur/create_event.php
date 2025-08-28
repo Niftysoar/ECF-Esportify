@@ -9,16 +9,26 @@ if (!isset($_SESSION['user_id']) || ($_SESSION['role'] !== 'organisateur' && $_S
     exit();
 }
 
+// Génération du token CSRF si absent
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
 $eventManager = new EventManager($pdo);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Vérification du token CSRF
+    if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+        die("Erreur CSRF : requête invalide.");
+    }
+    
     try {
         $eventManager->createEvent(
-            $_POST['title'],
-            $_POST['description'],
-            $_POST['player_count'],
-            $_POST['start_time'],
-            $_POST['end_date'],
+            htmlspecialchars(trim($_POST['title'])),
+            htmlspecialchars(trim($_POST['description'])),
+            $_POST['player_count'], // cast numérique
+            htmlspecialchars($_POST['start_time']),
+            htmlspecialchars($_POST['end_date']),
             $_SESSION['user_id']
         );
 
@@ -34,6 +44,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="container">
     <h1>Créer un <span class="highlight">événement</span></h1>
     <form action="/pages/auth/organisateur/create_event.php" method="POST" class="form">
+        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
+
         <div class="input-container">
             <input type="text" name="title" id="title" required>
             <label class="label" for="title">Titre</label>

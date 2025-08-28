@@ -1,4 +1,4 @@
-version: "3.8"
+# version: "3.8"
 
 services:
   web:
@@ -10,7 +10,10 @@ services:
     volumes:
       - .:/var/www/html
     depends_on:
-      - db
+      db:
+        condition: service_started
+      mongodb:
+        condition: service_healthy
     env_file:
       - .env
     networks:
@@ -47,16 +50,56 @@ services:
     networks:
       - app-network
 
-  # mongo:
-  #   image: 'mongo:4.2.16-bionic'
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: system
+    ports:
+      - "27017:27017"
+    volumes:
+      # - /Users/helloardanish/Documents/.../db-data:/data/db # to map with hard drive never lost
+      - mongodb_data:/data/db # used with docker, lost when docker volumes are deleted but not when service goes down (docker compose down)
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "mongosh --eval \"db.adminCommand('ping')\" -u admin -p system --authenticationDatabase admin >/dev/null 2>&1"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+
+  # mongo-express:
+  #   image: mongo-express:latest
+  #   container_name: mongo-express
+  #   restart: always
   #   ports:
-  #     - "27017:27017"
+  #     - "8081:8081"
   #   environment:
-  #     MONGO_INITDB_DATABASE: logs
-  #     MONGO_INITDB_ROOT_USER: admin
-  #     MONGO_INITDB_ROOT_PASSWORD: supermotdepasse
-  #   volumes:
-  #     - ./db-data/mongo/:/data/db
+  #     # ME_CONFIG_MONGODB_ADMINUSERNAME: admin
+  #     # ME_CONFIG_MONGODB_ADMINPASSWORD: system
+  #     # ME_CONFIG_MONGODB_SERVER: mongodb
+  #     ME_CONFIG_MONGODB_URL: "mongodb://admin:system@mongodb:27017/?authSource=admin"
+  #     ME_CONFIG_BASICAUTH: "false"
+  #   depends_on:
+  #     - mongodb
+  mongo-express:
+    image: mongo-express:1
+    container_name: mongo-express
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      # Connexion Mongo (URL complète, avec authSource=admin)
+      ME_CONFIG_MONGODB_URL: "mongodb://admin:system@mongodb:27017/?authSource=admin"
+      # Désactive l'authentification HTTP de mongo-express (interface ouverte en local)
+      ME_CONFIG_BASICAUTH: "false"
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    networks:
+      - app-network
 
 networks:
   app-network:
@@ -65,3 +108,4 @@ networks:
 volumes:
   mariadb_data:
   pg_data:
+  mongodb_data:

@@ -1,4 +1,7 @@
 <?php
+
+require_once __DIR__ . '/../entity/Event.php';
+
 class EventManager {
     private $pdo;
 
@@ -103,7 +106,7 @@ class EventManager {
      * Écrit un log de lancement d'événement
      */
     public function logLaunch(int $event_id, int $organizer_id): void {
-        // Optionnel : tu peux aussi vérifier si l'event appartient à l'organisateur
+        // vérifier si l'event appartient à l'organisateur
         $stmt = $this->pdo->prepare("SELECT * FROM events WHERE id = :id AND created_by = :org_id");
         $stmt->execute([
             ':id' => $event_id,

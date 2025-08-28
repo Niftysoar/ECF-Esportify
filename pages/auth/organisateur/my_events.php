@@ -51,7 +51,7 @@ $events = $eventManager->getEventsByOrganizer($organizer_id);
                         </td>
                         <td>
                             <?php if ($e['start_time'] > date('Y-m-d H:i:s')): ?>
-                                <a href="/pages/auth/organisateur/edit_event.php?id=<?= $e['id'] ?>" class="btn-accept">Modifier</a>
+                                <a href="/editevent?id=<?= $e['id'] ?>" class="btn-edit">Modifier</a>
                             <?php else: ?>
                                 <span class="text-muted">Déjà lancé</span>
                             <?php endif; ?>
@@ -60,7 +60,7 @@ $events = $eventManager->getEventsByOrganizer($organizer_id);
                             <?php if ($e['status'] === 'valide' && $e['start_time'] > date('Y-m-d H:i:s')): ?>
                                 <form method="post" action="/pages/auth/organisateur/launch_event.php">
                                     <input type="hidden" name="event_id" value="<?= $e['id'] ?>">
-                                    <button type="submit" class="btn btn-highlight">Lancer</button>
+                                    <button type="submit" class="btn-accept">Lancer</button>
                                 </form>
                             <?php else: ?>
                                 <em>Indisponible</em>

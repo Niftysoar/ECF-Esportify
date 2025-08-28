@@ -369,7 +369,7 @@ header{
 
 .highlight p {
     font-family: 'StratumNo1', sans-serif;
-    color: #FFCA4C;
+    color: #FF4C4C;
 }
 
 .hero-content p {
@@ -1191,9 +1191,11 @@ tr:nth-child(even) {
 }
 
 .btn-accept,
-.btn-reject {
+.btn-reject,
+.btn-edit {
     padding: 8px 16px;
     color: #fff;
+    text-decoration: none;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -1208,12 +1210,20 @@ tr:nth-child(even) {
     background-color: #DD0012;
 }
 
+.btn-edit {
+    background-color: #426cff;
+}
+
 .btn-accept:hover {
     background-color: rgba(0, 165, 57, 0.6);
 }
 
 .btn-reject:hover {
     background-color: rgba(221, 0, 18, 0.6);
+}
+
+.btn-edit:hover {
+    background-color: rgba(66, 108, 255, 0.6);
 }
 
 /* Footer */

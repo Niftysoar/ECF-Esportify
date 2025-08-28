@@ -1,4 +1,7 @@
 <?php
+
+require_once __DIR__ . '/../entity/User.php';
+
 class UserManager {
     private $pdo;
 
@@ -9,24 +12,34 @@ class UserManager {
     /**
      * Enregistre un nouvel utilisateur
      */
-    public function register($username, $email, $password, $role = 'joueur') {
-        if (empty($username) || empty($email) || empty($password)) {
-            throw new Exception("Tous les champs sont obligatoires.");
-        }
-
-        $hash = password_hash($password, PASSWORD_BCRYPT);
-
-        $sql = "INSERT INTO users (username, email, password, role) 
-                VALUES (:username, :email, :password, :role)";
-        $stmt = $this->pdo->prepare($sql);
+    public function register($username, $email, $password) {
+        // Vérifier si l’utilisateur existe déjà
+        $stmt = $this->pdo->prepare("SELECT id FROM users WHERE username = :username OR email = :email");
         $stmt->execute([
             ':username' => $username,
-            ':email' => $email,
-            ':password' => $hash,
-            ':role' => $role
+            ':email' => $email
         ]);
 
-        return $this->pdo->lastInsertId();
+        if ($stmt->rowCount() > 0) {
+            throw new Exception("Ce nom d'utilisateur ou cet email est déjà utilisé.");
+        }
+
+        // Réaligner la séquence pour éviter l'erreur de clé dupliquée
+        $this->pdo->exec("SELECT setval('users_id_seq', COALESCE((SELECT MAX(id) FROM users), 1));");
+
+        // Hacher le mot de passe
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+        // Insérer le nouvel utilisateur
+        $stmt = $this->pdo->prepare("
+            INSERT INTO users (username, email, password, role, created_at) 
+            VALUES (:username, :email, :password, 'joueur', NOW())
+        ");
+        $stmt->execute([
+            ':username' => $username,
+            ':email'    => $email,
+            ':password' => $hashed_password
+        ]);
     }
 
     /**
