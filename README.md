@@ -46,7 +46,8 @@ Cela crée :
 
 - Un conteneur **Apache + PHP**.
 - Un conteneur **MySQL** avec les tables de la BDD.
-- Prépare un conteneur PostgreSQL (postgres) pour une base NoSQL ou des extensions futures.
+- Un conteneur **MongoDb** et **MongoDb Express** pour le NoSQL.
+- Prépare un conteneur PostgreSQL (postgres) pour des extensions futures.
 
 ---
 
@@ -55,6 +56,7 @@ Cela crée :
 | Service        | URL                          |
 |----------------|-------------------------------|
 | Site Web       | http://localhost:8000         |
+| Sevice MongoDb       | http://localhost:8081         |
 | Serveur PHP    | Port 8000 (redirigé vers Apache sur le conteneur)                        |
 | Base de données   | MariaDB (MySQL compatible) sur localhost:3307                        |
 
