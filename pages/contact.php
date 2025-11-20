@@ -1,0 +1,32 @@
+<section class="contact-section">
+    <h1>Une suggestion ? un bug ? <br><span class="highlight">Dites le nous !</span></h1>
+
+    <form action="/pages/API/process_contact.php" method="POST" class="form-contact">
+        <div class="form-left">
+            <div class="input-container">
+                <input type="text" class="form-control" id="name" name="name" required>
+                <label class="label" for="name">Nom</label>
+            </div>
+            <div class="input-container">
+                <input type="email" class="form-control" id="email" name="email" required>
+                <label class="label" for="email">Email</label>
+            </div>
+            <div class="captcha">
+                <input type="checkbox" name="captcha" required>
+                <label>Je ne suis pas un robot</label>
+                <img src="/assets/images/recaptcha-mock.png" alt="captcha">
+            </div>
+            </div>
+
+            <div class="form-right">
+            <div class="input-container">
+                <textarea name="message" rows="7" required></textarea>
+                <label class="label" for="description">Dites nous tout...</label>
+            </div>
+            <div class="footer-form">
+                <p>Vous aurez une réponse dans quelques jours</p>
+                <button type="submit" class="btn btn-highlight">ENVOYER</button>
+            </div>
+        </div>
+    </form>
+</section>

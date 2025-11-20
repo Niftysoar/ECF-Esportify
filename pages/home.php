@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'config.php'; // Assurez-vous que le chemin est correct
+require_once 'config.php';
 
 // Récupère les 3 derniers événements validés
 try {
@@ -15,7 +15,6 @@ try {
     $stmt->execute();
     $latest_events = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
-    // Gérer l'erreur de base de données
     die("Erreur lors de la récupération des événements : " . $e->getMessage());
 }
 ?>
@@ -66,66 +65,60 @@ try {
     </section>
 
     <section id="guides">
-        <div class="container">
-          <h2>LISEZ NOS GUIDES POUR UN MEILLEUR JEU</h2>
+        <h2>LISEZ NOS GUIDES POUR UN MEILLEUR JEU</h2>
+
+        <!-- <button class="pre-btn"><img src="assets/images/arrow.png" alt=""></button> -->
+    
+        <!-- Slider Container -->
+        <div class="guide-container">
       
-          <!-- Swiper Container -->
-          <div class="card-wrapper swiper">
-            <ul class="card-list swiper-wrapper">
-      
-              <!-- Slide 1 -->
-              <li class="card-item swiper-slide">
+            <!-- Slide 1 -->
+            <div class="guide-card">
                 <a href="#" class="card-link">
-                  <img src="assets/images/setup.jpg" alt="Card image" class="card-image">
-                  <p class="badge">Setup</p>
-                  <h2 class="card-title">Lorem ipsum dolor sit amet consectetur adipisicing elit.</h2>
+                    <img src="assets/images/setup.jpg" alt="Card image" class="card-image">
+                    <p class="badge">Setup</p>
+                    <h2 class="card-title">Lorem ipsum dolor sit amet consectetur adipisicing elit.</h2>
                 </a>
-              </li>
-      
-              <!-- Slide 2 -->
-              <li class="card-item swiper-slide">
+            </div>
+    
+            <!-- Slide 2 -->
+            <div class="guide-card">
                 <a href="#" class="card-link">
-                  <img src="assets/images/live_match.jpg" alt="Card image" class="card-image">
-                  <p class="badge">Developer</p>
-                  <h2 class="card-title">Lorem ipsum dolor sit amet consectetur adipisicing elit.</h2>
+                    <img src="assets/images/live_match.jpg" alt="Card image" class="card-image">
+                    <p class="badge">Developer</p>
+                    <h2 class="card-title">Lorem ipsum dolor sit amet consectetur adipisicing elit.</h2>
                 </a>
-              </li>
-      
-              <!-- Slide 3 -->
-              <li class="card-item swiper-slide">
+            </div>
+    
+            <!-- Slide 3 -->
+            <div class="guide-card">
                 <a href="#" class="card-link">
-                  <img src="assets/images/marketer.jpg" alt="Card image" class="card-image">
-                  <p class="badge">Marketer</p>
-                  <h2 class="card-title">Lorem ipsum dolor sit amet consectetur adipisicing elit.</h2>
+                    <img src="assets/images/marketer.jpg" alt="Card image" class="card-image">
+                    <p class="badge">Marketer</p>
+                    <h2 class="card-title">Lorem ipsum dolor sit amet consectetur adipisicing elit.</h2>
                 </a>
-              </li>
-      
-              <!-- Slide 4 -->
-              <li class="card-item swiper-slide">
+            </div>
+    
+            <!-- Slide 4 -->
+            <div class="guide-card">
                 <a href="#" class="card-link">
-                  <img src="assets/images/gamer.jpg" alt="Card image" class="card-image">
-                  <p class="badge">Gamer</p>
-                  <h2 class="card-title">Lorem ipsum dolor sit amet consectetur adipisicing elit.</h2>
+                    <img src="assets/images/gamer.jpg" alt="Card image" class="card-image">
+                    <p class="badge">Gamer</p>
+                    <h2 class="card-title">Lorem ipsum dolor sit amet consectetur adipisicing elit.</h2>
                 </a>
-              </li>
-      
-              <!-- Slide 5 -->
-              <li class="card-item swiper-slide">
+            </div>
+    
+            <!-- Slide 5 -->
+            <div class="guide-card">
                 <a href="#" class="card-link">
-                  <img src="assets/images/editor.jpg" alt="Card image" class="card-image">
-                  <p class="badge">Editor</p>
-                  <h2 class="card-title">Lorem ipsum dolor sit amet consectetur adipisicing elit.</h2>
+                    <img src="assets/images/editor.jpg" alt="Card image" class="card-image">
+                    <p class="badge">Editor</p>
+                    <h2 class="card-title">Lorem ipsum dolor sit amet consectetur adipisicing elit.</h2>
                 </a>
-              </li>
-      
-            </ul>
-      
-            <!-- Navigation + Pagination -->
-            <div class="swiper-pagination"></div>
-            <div class="swiper-slide-button swiper-button-prev"></div>
-            <div class="swiper-slide-button swiper-button-next"></div>
-          </div>
+            </div>
         </div>
+
+        <!-- <button class="nxt-btn"><img src="assets/images/arrow.png" alt=""></button> -->
       </section>
 
       <section id="lives">
