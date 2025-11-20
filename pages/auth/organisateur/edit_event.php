@@ -13,12 +13,12 @@ if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
 
-$event_id = $_GET['id'] ?? null;
+$event_id = $_POST['event_id'] ?? $_GET['id'] ?? null;
 if (!$event_id) {
     die("ID d'événement manquant.");
 }
 
-// Récupération des infos de l'événement directement (sans méthode dédiée)
+// Récupération de toutes les infos de l'événement
 $stmt = $pdo->prepare("SELECT * FROM events WHERE id = :id");
 $stmt->execute([':id' => $event_id]);
 $event = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -51,6 +51,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Rechargement des données mises à jour
         $stmt->execute([':id' => $event_id]);
         $event = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        header('Location: /orga');
+        exit();
     } catch (Exception $e) {
         $error = $e->getMessage();
     }
@@ -67,9 +70,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <p class="error"><?= htmlspecialchars($error) ?></p>
     <?php endif; ?>
 
-    <form action="" method="POST" class="form">
+    <form action="/pages/auth/organisateur/edit_event.php" method="POST" class="form">
         <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
 
+        <input type="hidden" name="event_id" value="<?= $event_id ?>">
         <div class="input-container">
             <input type="text" name="title" id="title" required value="<?= htmlspecialchars($event['title']) ?>">
             <label class="label" for="title">Titre</label>

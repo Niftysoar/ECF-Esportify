@@ -542,108 +542,106 @@ header{
     }
 }
 
-/* Guides */
+/* SECTION GUIDES */
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 40px 20px;
 }
 
-.card-wrapper{
-    max-width: 1100px;
-    margin: 0 60px 35px;
-    padding: 20px 10px;
+#guides {
+    max-width: 1650px;
+    margin: 0 auto;
+    padding: 20px 70px;
     overflow: hidden;
 }
 
-.card-list .card-item{
-    list-style: none;
+/* Slider */
+.guide-container{
+    padding: 20px;
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
 }
 
-.card-list .card-item .card-link {
-    user-select: none;
-    display: block;
+.guide-container::-webkit-scrollbar {
+    display: none;
+}
+
+.guide-container {
+    scroll-snap-type: x mandatory;
+}
+
+.guide-card {
+    scroll-snap-align: start;
+}
+
+/* CARD */
+.guide-card {
+    flex: 0 0 auto;
+    min-width: 360px;
+    max-width: 360px;
+    margin-right: 40px;
     background: #1A1A1A;
-    padding: 18px;
     border-radius: 12px;
-    text-decoration: none;
     border: 2px solid transparent;
-    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.05);
-    transition: 0.2s ease;
+    transition: 0.25s ease;
 }
 
-.card-list .card-item .card-link:active {
-   cursor: grabbing; 
-}
-
-.card-list .card-item .card-link:hover{
+.guide-card:hover {
     border-color: #FF4C4C;
+    transform: translateY(-5px);
 }
 
-.card-list .card-link .card-image{
+.card-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    padding: 18px;
+}
+
+.card-image {
     width: 100%;
-    aspect-ratio: 16 / 9;
+    height: 220px;
     object-fit: cover;
     border-radius: 10px;
 }
 
-.card-list .card-link .badge{
-    color: white;
-    padding: 8px 16px;
-    font-size: 0.95rem;
-    font-weight: 500;
-    margin: 16px 0 18px;
+.badge {
     background: #303030;
-    width: fit-content;
-    border-radius: 50px;
-}
-
-.card-list .card-link .card-title{
-    font-size: 1.19rem;
-    color: white;
-    font-weight: 600; 
-}
-
-.card-list .card-link .card-button{
-    height: 35px;
-    width: 35px;
-    color: #FF4C4C;
-    border-radius: 50%;
-    margin: 30px 0 5px;
-    background: none;
-    cursor: pointer;
-    border: 2px solid #FF4C4C;
-    transform: rotate(-45deg);
-    transition: 0.4s ease;
-}
-
-.card-list .card-link .card-button:hover{
     color: #fff;
-    background: #FF4C4C;
+    padding: 8px 16px;
+    margin: 14px 0;
+    display: inline-block;
+    border-radius: 50px;
+    font-size: 0.9rem;
 }
 
-.card-wrapper .swiper-pagination-bullet{
-    height: 13px;
-    width: 13px;
-    opacity: 0.5;
-    background: #FF4C4C;
+.card-title {
+    font-size: 1.1rem;
+    color: white;
+    font-weight: 600;
+    line-height: 1.3;
 }
 
-.card-wrapper .swiper-pagination-bullet-active{
-    opacity: 1;
-}
-
-.card-wrapper .swiper-slide-button{
-    color: #FF4C4C;
-    margin-top: -35px;
-}
-
+/* Mobile */
 @media screen and (max-width: 768px) {
-    .card-wrapper{
-        margin: 0 10px 25px;
+    .guide-container {
+        gap: 12px;
+        padding: 10px 0;
     }
 
-    .card-wrapper .swiper-slide-button{
+    .guide-card {
+        min-width: 300px;
+        max-width: 300px;
+    }
+
+    .card-image {
+        height: 190px;
+    }
+
+    .pre-btn,
+    .nxt-btn {
         display: none;
     }
 }

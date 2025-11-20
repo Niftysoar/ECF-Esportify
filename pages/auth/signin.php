@@ -3,56 +3,60 @@ session_start();
 require_once('../config.php');
 require_once('../classes/UserManager.php');
 
-$userManager = new UserManager($pdo);
-
-// Génération du token CSRF si absent
-if (empty($_SESSION['csrf_token'])) {
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-}
-
 // Vérifier si déjà connecté
 if (isset($_SESSION['user_id'])) {
     header("Location: " . ($_SESSION['role'] == 'admin' ? "/admin" : "/dashboard"));
     exit();
 }
 
-$error = null;
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Vérification du token CSRF
     if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
-        die("Erreur CSRF : requête invalide.");
+        die("Requête invalide (CSRF détecté).");
     }
     
     $username = htmlspecialchars(trim($_POST['username']));
     $password = trim($_POST['password']);
 
+    $userManager = new UserManager($pdo);
+
     try {
         $user = $userManager->login($username, $password);
 
-        // Stockage des informations de session
+        // On stocke les infos en session
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
         $_SESSION['role'] = $user['role'];
 
         // Redirection selon le rôle
-        $redirect = $user['role'] === 'admin' ? "/admin" : "/dashboard";
-        header("Location: $redirect");
-        exit();
+        if ($user['role'] === 'admin') {
+            header('Location: /admin');
+        } elseif ($user['role'] === 'organisateur') {
+            header('Location: /orga');
+        } else {
+            header('Location: /dashboard');
+        }
+        exit;
     } catch (Exception $e) {
         $error = $e->getMessage();
     }
 }
+
+// Générer un token CSRF
+$_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 ?>
 
 <section class="connexion">
     <h1>Contents de <span class="highlight">vous voir !</span></h1>
 
-    <?php if ($error): ?>
-        <div class="error"><?= htmlspecialchars($error); ?></div>
+    <?php if (!empty($error)): ?>
+        <div class="popup-error">
+            <p><?= htmlspecialchars($error) ?></p>
+            <button onclick="this.parentElement.style.display='none'" class="btn btn-highlight">Fermer</button>
+        </div>
     <?php endif; ?>
 
-    <form id="login-form" class="form" method="POST" action="">
+    <form id="login-form" action="/pages/auth/signin.php" method="POST" class="form">
         <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
 
         <div class="input-container">
@@ -71,5 +75,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
     </form>
 </section>
-
-<script type="module" src="/Scripts/Routeur/login.js"></script>

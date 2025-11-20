@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['user_id']
         );
 
-        header('Location: /dashboard');
+        header('Location: /orga');
         exit();
     } catch (Exception $e) {
         $error = $e->getMessage();

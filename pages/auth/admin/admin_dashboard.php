@@ -51,5 +51,6 @@ $registration_count = $stmt->fetchColumn();
     <div class="links">
         <a href="/eventmanager" class="btn btn-highlight">Parametres Événements</a>
         <a href="/usermanager" class="btn btn-highlight">Informations Utilisateurs</a>
+        <a href="/messages" class="btn btn-highlight">Messages</a>
     </div>
 </section>

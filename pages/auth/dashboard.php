@@ -89,6 +89,7 @@ $scores = $stmt_scores->fetchAll(PDO::FETCH_ASSOC);
                 <div class="dashboard-admin">
                     <h2>Tableau de bord <span class="highlight">Administrateur</span></h2>
                     <a href="/admin" class="btn btn-highlight">Accès Admin</a>
+                    <a href="/orga" class="btn btn-highlight">Accès Organisateur</a>
                 </div>
             <?php endif; ?>
         <?php endif; ?>

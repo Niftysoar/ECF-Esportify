@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-require_once '../mongo.php'; // <-- chemin CORRECT depuis /public/pages
+session_start();
+require_once '../mongo.php';
 
 use MongoDB\BSON\UTCDateTime;
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-  http_response_code(405);
-  header('Content-Type: application/json; charset=utf-8');
-  echo json_encode(['ok'=>false, 'error'=>'Méthode non autorisée']);
-  exit;
+    $_SESSION['error_message'] = "Méthode non autorisée.";
+    header("Location: /contact");
+    exit;
 }
 
 // Récupération brute
@@ -19,30 +19,29 @@ $messageRaw = trim($_POST['message']?? '');
 
 // Validations
 if ($nameRaw === '' || $emailRaw === '' || $messageRaw === '') {
-  http_response_code(400);
-  header('Content-Type: application/json; charset=utf-8');
-  echo json_encode(['ok'=>false, 'error'=>'Champs requis manquants']); exit;
+    $_SESSION['error_message'] = "Tous les champs sont requis.";
+    header("Location: /contact");
+    exit;
 }
 if (!filter_var($emailRaw, FILTER_VALIDATE_EMAIL)) {
-  http_response_code(400);
-  header('Content-Type: application/json; charset=utf-8');
-  echo json_encode(['ok'=>false, 'error'=>'Email invalide']); exit;
+    $_SESSION['error_message'] = "Email invalide.";
+    header("Location: /contact");
+    exit;
 }
 if (mb_strlen($nameRaw) > 120 || mb_strlen($emailRaw) > 200 || mb_strlen($messageRaw) > 5000) {
-  http_response_code(413);
-  header('Content-Type: application/json; charset=utf-8');
-  echo json_encode(['ok'=>false, 'error'=>'Taille excessive']); exit;
+    $_SESSION['error_message'] = "Taille des champs excessive.";
+    header("Location: /contact");
+    exit;
 }
 
-// Captcha (checkbox du formulaire)
-if (!isset($_POST['captcha']) && !isset($_POST['g-recaptcha-response'])) {
-  // Décommentez pour rendre obligatoire :
-  // http_response_code(400);
-  // header('Content-Type: application/json; charset=utf-8');
-  // echo json_encode(['ok'=>false,'error'=>'Captcha requis']); exit;
+// Captcha
+if (!isset($_POST['captcha'])) {
+    $_SESSION['error_message'] = "Captcha requis.";
+    header("Location: /contact");
+    exit;
 }
 
-// Échappement pour affichage futur
+// Échappement
 $name    = htmlspecialchars($nameRaw,    ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 $email   = htmlspecialchars($emailRaw,   ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 $message = htmlspecialchars($messageRaw, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
@@ -59,13 +58,12 @@ $doc = [
 ];
 
 try {
-  $db->contact_messages->insertOne($doc);
-  header('Content-Type: application/json; charset=utf-8');
-  echo json_encode(['ok'=>true, 'message'=>'Votre message a été enregistré.']); exit;
+    $db->contact_messages->insertOne($doc);
+    $_SESSION['success_message'] = "Votre message a bien été enregistré 👍";
+    header("Location: /contact");
+    exit;
 } catch (\Throwable $e) {
-  http_response_code(500);
-  header('Content-Type: application/json; charset=utf-8');
-  echo json_encode(['ok'=>false, 'error'=>'Erreur serveur']); exit;
+    $_SESSION['error_message'] = "Erreur serveur, veuillez réessayer.";
+    header("Location: /contact");
+    exit;
 }
-
-?>

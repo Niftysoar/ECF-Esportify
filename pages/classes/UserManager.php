@@ -46,8 +46,7 @@ class UserManager {
      * Vérifie la connexion utilisateur
      */
     public function login($username, $password) {
-        $sql = "SELECT * FROM users WHERE username = :username";
-        $stmt = $this->pdo->prepare($sql);
+        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE username = :username");
         $stmt->execute([':username' => $username]);
         $user = $stmt->fetch();
 

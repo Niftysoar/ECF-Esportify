@@ -4,7 +4,7 @@ require_once(__DIR__ . '/../../config.php');
 require_once(__DIR__ . '/../../classes/EventManager.php');
 
 // Vérification organisateur
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'organisateur') {
+if (!isset($_SESSION['user_id']) || ($_SESSION['role'] !== 'organisateur' && $_SESSION['role'] !== 'admin')) {
     header('Location: /');
     exit();
 }

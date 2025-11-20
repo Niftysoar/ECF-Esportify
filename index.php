@@ -31,7 +31,6 @@ include('pages/config.php');
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=arrow_forward" />
 
     <!-- Feuilles de style -->
-    <link rel="stylesheet" href="CSS/swiper-bundle.min.css">
     <link rel="stylesheet" href="CSS/styles.css">
 </head>
 <body class="background">
@@ -146,10 +145,6 @@ include('pages/config.php');
         </div>
     </footer>  
 
-    <!-- Swiper.js for carousels -->
-    <script src="Scripts/Swiper/swiper-bundle.min.js"></script>
-    <script src="Scripts/Swiper/script.js"></script>
-
     <!-- Custom Router (module JS) -->
     <script type="module" src="Scripts/Routeur/Routage.js"></script>
 
@@ -158,8 +153,6 @@ include('pages/config.php');
 
     <!-- Global site behavior -->
     <script src="Scripts/script.js"></script>
-
-    <script type="module" src="Scripts/Routeur/login.js"></script>
 
 </body>
 </html>

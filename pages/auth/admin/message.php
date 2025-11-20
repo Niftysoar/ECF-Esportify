@@ -13,14 +13,22 @@ $db = mongo_db();
 $messages = $db->contact_messages->find([], ['sort' => ['createdAt' => -1]]);
 ?>
 
-<h1>Messages de contact</h1>
-
-<ul>
-  <?php foreach ($messages as $m): ?>
-    <li>
-      <strong><?= htmlspecialchars($m['name']) ?></strong>
-      (<?= htmlspecialchars($m['email']) ?>) :
-      <?= nl2br(htmlspecialchars($m['message'])) ?>
-    </li>
-  <?php endforeach ?>
-</ul>
+<h1>Messages de <span class="highlight">contact</span></h1>
+<table>
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Message</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($messages as $m): ?>
+            <tr>
+                <td><?= htmlspecialchars($m['name']) ?></td>
+                <td><?= htmlspecialchars($m['email']) ?></td>
+                <td><?= nl2br(htmlspecialchars($m['message'])) ?></td>
+            </tr>
+        <?php endforeach ?>
+    </tbody>
+</table>

@@ -3,8 +3,8 @@ session_start();
 require_once('../config.php');
 require_once('../classes/UserManager.php');
 
-// Protection CSRF
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Protection CSRF
     if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
         die("Requête invalide (CSRF détecté).");
     }

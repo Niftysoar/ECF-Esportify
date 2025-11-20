@@ -102,9 +102,7 @@ class EventManager {
         ]);
     }
 
-    /**
-     * Écrit un log de lancement d'événement
-     */
+    // --- Écrit un log de lancement d'événement
     public function logLaunch(int $event_id, int $organizer_id): void {
         // vérifier si l'event appartient à l'organisateur
         $stmt = $this->pdo->prepare("SELECT * FROM events WHERE id = :id AND created_by = :org_id");

@@ -12,7 +12,7 @@ function mongo_db(): Database {
         return $db;
     }
 
-    // 🔑 Utilise vos variables d’environnement si définies
+    // Utilise les variables d’environnement si définies
     $uri    = getenv('MONGODB_URI');
     $dbName = getenv('MONGODB_DB');
 
