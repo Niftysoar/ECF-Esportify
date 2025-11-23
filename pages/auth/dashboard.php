@@ -129,19 +129,6 @@ $scores = $stmt_scores->fetchAll(PDO::FETCH_ASSOC);
                             <p><strong>Score :</strong> <?= htmlspecialchars($score['score']); ?></p>
                             <p><strong>Joueur :</strong> <?= htmlspecialchars($score['username']); ?></p>
                         </div>
-<<<<<<< HEAD
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <p class="no-event">Aucun score enregistré.</p>
-                <?php endif; ?>
-            </div>
-
-            <div class="dashboard-admin">
-                <h2>Gestion des <span class="highlight">Événements</span></h2>
-                <a href="/admin" class="btn btn-highlight">Accès Admin</a>
-            </div>
-    </section>
-=======
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>
@@ -149,4 +136,3 @@ $scores = $stmt_scores->fetchAll(PDO::FETCH_ASSOC);
             <?php endif; ?>
         </div>
     </section>
->>>>>>> Docker-setup
